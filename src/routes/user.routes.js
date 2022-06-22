@@ -4,17 +4,15 @@ const router = express.Router();
 
 
 // ? Agrupa acciones HTTP sobre la misma ruta
-router.route( '/' )
+router.route( '/login' )
     .get( ( request, response ) => {
-        response.json({ path: '/', method: 'GET' });
-    })
-    .post( ( request, response ) => {
-        response.json({ path: '/', method: 'POST' });
+        response.render( './auth/login' );
     });
 
-router.get( '/about-us', ( request, response ) => {
-    response.send( '<h1>Nosotros</h1>' );
-});
+router.route( '/register' )
+    .get( ( request, response ) => {
+        response.render( './auth/register' );
+    });
 
 
 export default router;
