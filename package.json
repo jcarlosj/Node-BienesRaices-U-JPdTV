@@ -1,0 +1,19 @@
+{
+  "name": "bienes-raices",
+  "version": "1.0.0",
+  "description": "Bienes Raices (MVC)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "MVC",
+    "Pug",
+    "Sequelize (MySQL)",
+    "Tailwind"
+  ],
+  "author": "Juan Carlos Jiménez Gutiérrez <jcjimenez29@misena.edu.co>",
+  "license": "ISC"
+}
