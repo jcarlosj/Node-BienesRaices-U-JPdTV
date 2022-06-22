@@ -1,17 +1,13 @@
 import express from 'express';
 
+import userRoutes from './src/routes/user.routes.js';
+
 const
     PORT = 4000,
     app = express();
 
 // * Routing
-app.get( '/', ( request, response ) => {
-    response.send( '<h1>Bienes Raices</h1>' );
-});
-
-app.get( '/about-us', ( request, response ) => {
-    response.send( '<h1>Nosotros</h1>' );
-});
+app.use( '/', userRoutes );
 
 app.listen( PORT, () => {
     console.log( `Listening on port ${ PORT }` );
