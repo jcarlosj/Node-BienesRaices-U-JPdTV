@@ -1,6 +1,7 @@
+import express from 'express';
+
 const
     PORT = 4000,
-    express = require( 'express' )
     app = express();
 
 // * Routing
