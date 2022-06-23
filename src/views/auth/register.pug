@@ -2,4 +2,33 @@ extends ../layout/index
 
 //- Define bloque de contenido de la pagina
 block page_body
-    h2( class="text-center text-2xl" ) #{ name_page }
+    .py-10
+        h1( class="text-4xl my-10 font-extrabold text-center" ) Bienes
+            span( class="font-normal" ) Raices
+        h2( class="text-center text-2xl" ) #{ name_page }
+        
+        .mt-8.mx-auto.max-w-md
+            .bg-white.py-8.px-4.shadow.rounded-md
+
+                form( class="space-y-5" )
+                    div 
+                        label( for="name" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Nombre
+                        input( type="text" id="name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Eva Sofia" )
+                    div 
+                        label( for="email" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Email
+                        input( type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="evasofia@correo.co" )
+                    div 
+                        label( for="password" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Contraseña
+                        input( type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" )
+                    div 
+                        label( for="confirm_password" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Confirmar contraseña
+                        input( type="password" id="confirm_password" name="confirm_password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" )
+                        
+                    .flex.items-center.justify-between.text-gray-500.text-xs
+                        span ¿Ya tienes cuenta? 
+                            strong 
+                                a( href="/auth/login" ) Ingresa ahora!
+                        a( href="/auth/recover-password" ) Olvide mi contraseña 
+                    
+                    div 
+                        input( type="submit" value="Crear cuenta" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
