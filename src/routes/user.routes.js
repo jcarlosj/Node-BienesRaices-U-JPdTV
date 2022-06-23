@@ -1,22 +1,12 @@
 import express from 'express';
 
+import { formLogin, formRegister } from '../controllers/user.controller.js';
+
 const router = express.Router();
 
 
-// ? Agrupa acciones HTTP sobre la misma ruta
-router.route( '/login' )
-    .get( ( request, response ) => {
-        response.render( './auth/login', {
-            name_page: 'Login page'
-        });
-    });
-
-router.route( '/register' )
-    .get( ( request, response ) => {
-        response.render( './auth/register', {
-            name_page: 'Register page'
-        });
-    });
+router.get( '/login', formLogin );
+router.get( '/register', formRegister );
 
 
 export default router;
