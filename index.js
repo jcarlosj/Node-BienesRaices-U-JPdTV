@@ -9,6 +9,8 @@ const
 app.set( 'view engine', 'pug' );        // ! Habilita pug como motor de plantillas
 app.set( 'views', './src/views' );      // ! Habilita directorio de las vistas
 
+app.use( express.static( 'public' ) );  // ! Habilita directorio para archivos publicos
+
 // * Routing
 app.use( '/auth', userRoutes );
 
