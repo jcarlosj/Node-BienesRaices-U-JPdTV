@@ -10,6 +10,11 @@ const formRegister = ( request, response ) => {
     });
 }
 
+const registerUser = ( request, response ) => {
+    console.log( 'Registrando usuario...' );
+    return;
+}
+
 const formRecoverPassword = ( request, response ) => {
     response.render( './auth/recover-password', {
         name_page: 'Recuperar contraseña'
@@ -19,5 +24,6 @@ const formRecoverPassword = ( request, response ) => {
 export {
     formLogin,
     formRegister,
+    registerUser,
     formRecoverPassword
 }
