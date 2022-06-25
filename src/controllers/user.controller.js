@@ -34,7 +34,12 @@ const registerUser = async ( request, response ) => {
         token: generateRandomString()
     });
 
-    response.json( user );
+    // response.json( user );
+
+    response.render( './auth/register-confirmation', {
+        name_page: 'Registro Exitoso!',
+        message: 'Hemos enviado un e-mail de confirmación, presiona en el enlace.'
+    });
 }
 
 const formRecoverPassword = ( request, response ) => {
