@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { validateRegisterUser } from '../validators/user.js';
+
 import { 
     formLogin, 
     formRegister, registerUser,
@@ -13,7 +15,7 @@ router.get( '/login', formLogin );
 
 router.route( '/register' )
     .get( formRegister )
-    .post( registerUser );
+    .post( validateRegisterUser, registerUser );
 
 router.get( '/recover-password', formRecoverPassword );
 
