@@ -1,6 +1,8 @@
 import { check } from 'express-validator';
 import { validateResult } from '../helpers/validate.helper.js';
 
+import { userRegisterErrors } from '../controllers/user.controller.js';
+
 const validateRegisterUser = [
     check( 'name' )
         .exists()           // ! Valida si existe el campo
@@ -30,7 +32,12 @@ const validateRegisterUser = [
             return true;
         }),
     ( request, response, next ) => {
-        validateResult( request, response, next );
+        const errors = validateResult( request, response, next );
+
+        console.log( errors );
+        
+        if( errors )
+            userRegisterErrors( request, response, errors );
     }
 ];
 

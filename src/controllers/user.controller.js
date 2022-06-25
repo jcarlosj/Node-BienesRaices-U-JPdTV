@@ -13,6 +13,13 @@ const formRegister = ( request, response ) => {
     });
 }
 
+const userRegisterErrors = ( request, response, errors ) => {
+    response.render( './auth/register', {
+        name_page: 'Registro',
+        errors
+    });
+}
+
 const registerUser = async ( request, response ) => {
     const user = await User.create( request.body );
 
@@ -27,7 +34,6 @@ const formRecoverPassword = ( request, response ) => {
 
 export {
     formLogin,
-    formRegister,
-    registerUser,
+    formRegister, userRegisterErrors, registerUser,
     formRecoverPassword
 }

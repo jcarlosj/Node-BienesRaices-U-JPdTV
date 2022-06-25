@@ -9,7 +9,8 @@ const validateResult = ( request, response, next ) => {
     }
     catch( error ) {
         // ! La existencia de errores lanzan la excepción
-        response.status( 403 ).send({ errors: error.array() });
+        // response.status( 403 ).send({ errors: error.array() });
+        return error.array();
     }
 }
 
