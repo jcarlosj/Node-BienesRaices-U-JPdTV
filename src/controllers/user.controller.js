@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import { generateRandomString } from '../helpers/generate.token.js'
 
 
 const formLogin = ( request, response ) => {
@@ -24,7 +25,14 @@ const userRegisterErrors = ( request, response, errors ) => {
 }
 
 const registerUser = async ( request, response ) => {
-    const user = await User.create( request.body );
+    const { body: { name, email, password } } = request;
+
+    const user = await User.create({ 
+        name, 
+        email, 
+        password, 
+        token: generateRandomString()
+    });
 
     response.json( user );
 }
