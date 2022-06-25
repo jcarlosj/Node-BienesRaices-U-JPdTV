@@ -18,16 +18,16 @@ block page_body
                 form( class="space-y-5" method="post" action="/auth/register" novalidate="true" )
                     div 
                         label( for="name" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Nombre
-                        input( type="text" id="name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Eva Sofia" )
+                        input( type="text" id="name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Eva Sofia" value=`${ user ? user.name : '' }` )
                     div 
                         label( for="email" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Email
-                        input( type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="evasofia@correo.co" )
+                        input( type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="evasofia@correo.co" value=`${ user ? user.email : '' }` )
                     div 
                         label( for="password" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Contraseña
-                        input( type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" )
+                        input( type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" value=`${ user ? user.password : '' }` )
                     div 
                         label( for="confirm_password" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Confirmar contraseña
-                        input( type="password" id="confirm_password" name="confirm_password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" )
+                        input( type="password" id="confirm_password" name="confirm_password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" value=`${ user ? user.confirm_password : '' }` )
                         
                     .flex.items-center.justify-between.text-gray-500.text-xs
                         span ¿Ya tienes cuenta? 

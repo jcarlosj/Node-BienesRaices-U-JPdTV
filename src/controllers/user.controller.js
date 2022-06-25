@@ -14,9 +14,12 @@ const formRegister = ( request, response ) => {
 }
 
 const userRegisterErrors = ( request, response, errors ) => {
+    const { body: { name, email, password, confirm_password } } = request;
+
     response.render( './auth/register', {
         name_page: 'Registro',
-        errors
+        errors,
+        user: { name, email, password, confirm_password }
     });
 }
 
