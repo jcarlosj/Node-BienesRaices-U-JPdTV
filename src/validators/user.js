@@ -2,6 +2,7 @@ import { check } from 'express-validator';
 import { validateResult } from '../helpers/validate.helper.js';
 
 import { userRegisterErrors } from '../controllers/user.controller.js';
+import User from '../models/User.js';
 
 const validateRegisterUser = [
     check( 'name' )
@@ -13,7 +14,15 @@ const validateRegisterUser = [
         .not().isEmpty()   // ! Otra forma: .notEmpty()
             .withMessage( 'Email is required' )
         .isEmail()
-            .withMessage( 'Invalid email format' ),
+            .withMessage( 'Invalid email format' )
+        .custom( value => {
+            return User.findOne({ where: { email: value } })
+                .then( user => {
+                    if ( user ) {
+                        return Promise.reject( 'E-mail already in use' );
+                    }
+                });
+        }),
     check( 'password' )
         .exists()
         .not().isEmpty()   // ! Otra forma: .notEmpty()
@@ -35,7 +44,7 @@ const validateRegisterUser = [
         const errors = validateResult( request, response, next );
 
         console.log( errors );
-        
+
         if( errors )
             userRegisterErrors( request, response, errors );
     }
