@@ -15,13 +15,10 @@ const validateRegisterUser = [
             .withMessage( 'Email is required' )
         .isEmail()
             .withMessage( 'Invalid email format' )
-        .custom( value => {
-            return User.findOne({ where: { email: value } })
-                .then( user => {
-                    if ( user ) {
-                        return Promise.reject( 'E-mail already in use' );
-                    }
-                });
+        .custom( async value => {
+            const user = await User.findOne({ where: { email: value } });
+            
+            if ( user ) throw new Error( 'E-mail already in use' );
         }),
     check( 'password' )
         .exists()
