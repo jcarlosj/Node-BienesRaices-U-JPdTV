@@ -71,10 +71,14 @@ const confirmAccount = async ( request, response ) => {
         });
     }
 
+    /** Registramos cambios al confirmar la valides del token */
+    user.token = null;
+    user.confirmed = true;
+    await user.save();
+
     return response.render( './auth/account-confirmation', {
         name_page: 'Cuenta confirmada',
-        message: 'Hemos confirmado tu cuenta correctamente. Ya puedes ingresar al sistema.',
-        error: false
+        message: 'Hemos confirmado tu cuenta correctamente. Ya puedes ingresar al sistema.'
     });
 }
 
