@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { validateRegisterUser } from '../validators/user.js';
+import { verifyConfirmationToken } from '../middlewares/verifyConfirmationToken.js';
 
 import { 
     formLogin, 
@@ -20,6 +21,10 @@ router.route( '/register' )
 
 router.get( '/recover-password', formRecoverPassword );
 
-router.get( '/confirm-account/:token', confirmAccount );
+router.get( 
+    '/confirm-account/:token', 
+    verifyConfirmationToken,
+    confirmAccount 
+);
 
 export default router;

@@ -55,21 +55,7 @@ const formRecoverPassword = ( request, response ) => {
 }
 
 const confirmAccount = async ( request, response ) => {
-    const { params: { token } } = request;
-
-    const user = await User.findOne({
-        where: { token }
-    });
-
-    console.log( user );
-
-    if( ! user ) {
-        return response.render( './auth/account-confirmation', {
-            name_page: 'Error al confirma cuenta',
-            message: 'Hubo un error al intentar confirmar tu cuenta, intenta de nuevo.',
-            error: true
-        });
-    }
+    const { locals: { user } } = response;
 
     /** Registramos cambios al confirmar la valides del token */
     user.token = null;
