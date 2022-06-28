@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 
 import db from './src/config/sequelize.js';
 import userRoutes from './src/routes/user.routes.js';
@@ -11,6 +13,8 @@ const
     app = express();
 
 app.use( express.urlencoded({ extended: true }) );  // ! Habilita JSON
+app.use( cookieParser() );                          // ! Habilita CookieParser
+app.use( csrf({ cookie: true }) );                  // ! Habilita CSRF con uso de cookies
 
 // * Implementa conexion de MySQL usando Sequelize
 try {

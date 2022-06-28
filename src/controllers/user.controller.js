@@ -10,6 +10,8 @@ const formLogin = ( request, response ) => {
 }
 
 const formRegister = ( request, response ) => {
+    console.log( 'CSRF: ', request.csrfToken() );
+
     response.render( './auth/register', {
         name_page: 'Registro'
     });
