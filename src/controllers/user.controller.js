@@ -1,5 +1,6 @@
 import User from '../models/User.js';
-import { generateRandomString } from '../helpers/generate.token.js'
+import { generateRandomString } from '../helpers/generate.token.js';
+import { sendConfirmationEmail } from '../helpers/emails.helper.js';
 
 
 const formLogin = ( request, response ) => {
@@ -35,6 +36,11 @@ const registerUser = async ( request, response ) => {
     });
 
     // response.json( user );
+    sendConfirmationEmail({
+        name: user.name,
+        email: user.email,
+        token: user.token
+    });
 
     response.render( './auth/register-confirmation', {
         name_page: 'Registro Exitoso!',
