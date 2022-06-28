@@ -54,8 +54,15 @@ const formRecoverPassword = ( request, response ) => {
     });
 }
 
+const confirmAccount = ( request, response ) => {
+    const { params: { token } } = request;
+
+    console.log( token );
+}
+
 export {
     formLogin,
     formRegister, userRegisterErrors, registerUser,
-    formRecoverPassword
+    formRecoverPassword,
+    confirmAccount
 }

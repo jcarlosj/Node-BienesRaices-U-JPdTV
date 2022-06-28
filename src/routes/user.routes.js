@@ -5,7 +5,8 @@ import { validateRegisterUser } from '../validators/user.js';
 import { 
     formLogin, 
     formRegister, registerUser,
-    formRecoverPassword 
+    formRecoverPassword,
+    confirmAccount
 } from '../controllers/user.controller.js';
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.route( '/register' )
 
 router.get( '/recover-password', formRecoverPassword );
 
+router.get( '/confirm-account/:token', confirmAccount );
 
 export default router;

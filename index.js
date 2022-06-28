@@ -1,10 +1,13 @@
 import express from 'express';
+import dotenv from 'dotenv';
 
 import db from './src/config/sequelize.js';
 import userRoutes from './src/routes/user.routes.js';
 
+dotenv.config({ path: '.env' });
+
 const
-    PORT = 4000,
+    PORT = process.env.PORT || 4000,
     app = express();
 
 app.use( express.urlencoded({ extended: true }) );  // ! Habilita JSON
