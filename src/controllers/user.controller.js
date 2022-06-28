@@ -10,10 +10,11 @@ const formLogin = ( request, response ) => {
 }
 
 const formRegister = ( request, response ) => {
-    console.log( 'CSRF: ', request.csrfToken() );
+    // console.log( 'CSRF: ', request.csrfToken() );
 
     response.render( './auth/register', {
-        name_page: 'Registro'
+        name_page: 'Registro',
+        csrf_token: request.csrfToken()
     });
 }
 
@@ -22,6 +23,7 @@ const userRegisterErrors = ( request, response, errors ) => {
 
     response.render( './auth/register', {
         name_page: 'Registro',
+        csrf_token: request.csrfToken(),
         errors,
         user: { name, email, password, confirm_password }
     });
