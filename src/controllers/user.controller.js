@@ -123,12 +123,21 @@ const changePasswordErrors = ( request, response, errors ) => {
     });
 }
 
-const generateNewPassword = ( request, response ) => {
+const generateNewPassword = async ( request, response ) => {
     const { params: { token }, body: { new_password } } = request;
 
-    response.send({ 
-        password: new_password,
-        token
+    const user = await User.findOne({
+        where: { token }
+    });
+
+    /** Registramos cambios al confirmar la existencia del token del usuario */
+    user.password = await user.hashPassword( new_password );
+    user.token = null;
+    await user.save();
+
+    return response.render( './auth/account-confirmation', {
+        name_page: 'Contraseña reestablecida',
+        message: 'Ya puedes ingresar al sistema con tu nueva contraseña.'
     });
 }
 

@@ -23,12 +23,19 @@ const User = db.define( 'Users', {
 }, {
     hooks: {
         beforeCreate: async function( user ) {
-            const salt = await bcrypt.genSalt( 10 );
+            const { password } = user;
 
-            user.password = await bcrypt.hash( user.password, salt );
+            user.password = this.hashPassword( password );
         }
     }
 });
+
+// * Personaliza modelo: Agregando metodo para encriptar contraseñas
+User.prototype.hashPassword = async function ( pass ) {
+    const salt = await bcrypt.genSalt( 10 );
+
+    return await bcrypt.hash( pass, salt );
+}
 
 
 export default User;
