@@ -8,7 +8,7 @@ import {
     formRegister, registerUser,
     formRecoverPassword, resetPassword,
     confirmAccount,
-    formChangePassword, generateNewPassword
+    formChangePassword, changePassword
 } from '../controllers/user.controller.js';
 
 const router = express.Router();
@@ -26,7 +26,7 @@ router.route( '/recover-password' )
 
 router.route( '/recover-password/:token' )
     .get( verifyConfirmationToken, formChangePassword )
-    .post( validateChangePassword, generateNewPassword );
+    .post( validateChangePassword, changePassword );
 
 router.get( 
     '/confirm-account/:token', 

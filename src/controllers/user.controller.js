@@ -4,7 +4,7 @@ import { sendConfirmationEmail, sendPasswordChangeConfirmation } from '../helper
 
 // ! Formulario: Login
 const formLogin = ( request, response ) => {
-    response.render( './auth/login', {
+    response.render( './auth/form-login', {
         name_page: 'Login'
     });
 }
@@ -13,7 +13,7 @@ const formLogin = ( request, response ) => {
 const formRegister = ( request, response ) => {
     // console.log( 'CSRF: ', request.csrfToken() );
 
-    response.render( './auth/register', {
+    response.render( './auth/form-register-user', {
         name_page: 'Registro',
         csrf_token: request.csrfToken()
     });
@@ -23,7 +23,7 @@ const formRegister = ( request, response ) => {
 const userRegisterErrors = ( request, response, errors ) => {
     const { body: { name, email, password, confirm_password } } = request;
 
-    response.render( './auth/register', {
+    response.render( './auth/form-register-user', {
         name_page: 'Registro',
         csrf_token: request.csrfToken(),
         errors,
@@ -49,7 +49,7 @@ const registerUser = async ( request, response ) => {
         token: user.token
     });
 
-    response.render( './auth/register-confirmation', {
+    response.render( './auth/page-register-confirmation', {
         name_page: 'Registro Exitoso!',
         message: 'Hemos enviado un e-mail de confirmación, presiona en el enlace.'
     });
@@ -57,7 +57,7 @@ const registerUser = async ( request, response ) => {
 
 // ! Formulario: Recuperar contraseña
 const formRecoverPassword = ( request, response ) => {
-    response.render( './auth/recover-password', {
+    response.render( './auth/form-recover-password', {
         name_page: 'Recuperar contraseña',
         csrf_token: request.csrfToken()
     });
@@ -67,7 +67,7 @@ const formRecoverPassword = ( request, response ) => {
 const resetPasswordErrors = ( request, response, errors ) => {
     const { body: { email } } = request;
 
-    response.render( './auth/recover-password', {
+    response.render( './auth/form-recover-password', {
         name_page: 'Registro',
         csrf_token: request.csrfToken(),
         errors,
@@ -93,29 +93,30 @@ const resetPassword = async ( request, response ) => {
         token: user.token
     });
 
-    response.render( './auth/register-confirmation', {
+    response.render( './auth/page-register-confirmation', {
         name_page: 'Recupera tu contraseña',
         message: 'Hemos enviado un e-mail de confirmación, presiona en el enlace para cambiar tu contraseña.'
     });
 }
 
+// ! Formulario: Cambiar contraseña
 const formChangePassword = ( request, response ) => {
     const { params: { token } } = request;
 
-    response.render( './auth/register-new-password', {
+    response.render( './auth/form-new-password', {
         name_page: 'Cambiar contraseña',
         csrf_token: request.csrfToken(),
         data: { token }
     });
 }
 
-// ! Formulario: Registro de usuario (Errores) 
+// ! Formulario: Cambiar contraseña (Errores) 
 const changePasswordErrors = ( request, response, errors ) => {
     const
         { body: { new_password, confirm_new_password } } = request,
         { params: { token } } = request;
 
-    response.render( './auth/register-new-password', {
+    response.render( './auth/form-new-password', {
         name_page: 'Registro',
         csrf_token: request.csrfToken(),
         errors,
@@ -123,7 +124,8 @@ const changePasswordErrors = ( request, response, errors ) => {
     });
 }
 
-const generateNewPassword = async ( request, response ) => {
+// ! Página: Confirmacion de cambio de contraseña
+const changePassword = async ( request, response ) => {
     const { params: { token }, body: { new_password } } = request;
 
     const user = await User.findOne({
@@ -135,7 +137,7 @@ const generateNewPassword = async ( request, response ) => {
     user.token = null;
     await user.save();
 
-    return response.render( './auth/account-confirmation', {
+    return response.render( './auth/page-confirmation-message', {
         name_page: 'Contraseña reestablecida',
         message: 'Ya puedes ingresar al sistema con tu nueva contraseña.'
     });
@@ -150,7 +152,7 @@ const confirmAccount = async ( request, response ) => {
     user.confirmed = true;
     await user.save();
 
-    return response.render( './auth/account-confirmation', {
+    return response.render( './auth/page-confirmation-message', {
         name_page: 'Cuenta confirmada',
         message: 'Hemos confirmado tu cuenta correctamente. Ya puedes ingresar al sistema.'
     });
@@ -161,5 +163,5 @@ export {
     formRegister, userRegisterErrors, registerUser,
     formRecoverPassword, resetPasswordErrors, resetPassword,
     confirmAccount,
-    formChangePassword, changePasswordErrors, generateNewPassword
+    formChangePassword, changePasswordErrors, changePassword
 }

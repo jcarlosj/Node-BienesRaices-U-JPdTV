@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import bcrypt from 'bcrypt';
+import { hashPassword } from '../helpers/pass.helper.js';
 
 import db from '../config/sequelize.js';
 
@@ -25,16 +25,15 @@ const User = db.define( 'Users', {
         beforeCreate: async function( user ) {
             const { password } = user;
 
-            user.password = this.hashPassword( password );
+            user.password = await hashPassword( password );
         }
     }
 });
 
 // * Personaliza modelo: Agregando metodo para encriptar contraseñas
 User.prototype.hashPassword = async function ( pass ) {
-    const salt = await bcrypt.genSalt( 10 );
 
-    return await bcrypt.hash( pass, salt );
+    return await hashPassword( pass );
 }
 
 
