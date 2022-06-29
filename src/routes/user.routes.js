@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { validateRegisterUser } from '../validators/user.js';
+import { validateRegisterUser } from '../middlewares/validators/user.js';
 import { verifyConfirmationToken } from '../middlewares/verifyConfirmationToken.js';
 
 import { 

@@ -1,8 +1,8 @@
 import { check } from 'express-validator';
-import { validateResult } from '../helpers/validate.helper.js';
+import { validateResult } from '../../helpers/validate.helper.js';
 
-import { userRegisterErrors } from '../controllers/user.controller.js';
-import User from '../models/User.js';
+import { userRegisterErrors } from '../../controllers/user.controller.js';
+import User from '../../models/User.js';
 
 const validateRegisterUser = [
     check( 'name' )
