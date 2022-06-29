@@ -2,13 +2,14 @@ import User from '../models/User.js';
 import { generateRandomString } from '../helpers/generate.token.js';
 import { sendConfirmationEmail } from '../helpers/emails.helper.js';
 
-
+// ! Formulario: Login
 const formLogin = ( request, response ) => {
     response.render( './auth/login', {
         name_page: 'Login'
     });
 }
 
+// ! Formulario: Registro de usuario
 const formRegister = ( request, response ) => {
     // console.log( 'CSRF: ', request.csrfToken() );
 
@@ -18,6 +19,7 @@ const formRegister = ( request, response ) => {
     });
 }
 
+// ! Formulario: Registro de usuario (Errores) 
 const userRegisterErrors = ( request, response, errors ) => {
     const { body: { name, email, password, confirm_password } } = request;
 
@@ -29,6 +31,7 @@ const userRegisterErrors = ( request, response, errors ) => {
     });
 }
 
+// ! Formulario: Registro de usuario exitoso
 const registerUser = async ( request, response ) => {
     const { body: { name, email, password } } = request;
 
@@ -52,12 +55,41 @@ const registerUser = async ( request, response ) => {
     });
 }
 
+// ! Formulario: Recuperar contraseña
 const formRecoverPassword = ( request, response ) => {
     response.render( './auth/recover-password', {
-        name_page: 'Recuperar contraseña'
+        name_page: 'Recuperar contraseña',
+        csrf_token: request.csrfToken()
     });
 }
 
+// ! Formulario: Recuperar contraseña (Errores)
+const resetPasswordErrors = ( request, response, errors ) => {
+    const { body: { email } } = request;
+
+    response.render( './auth/recover-password', {
+        name_page: 'Registro',
+        csrf_token: request.csrfToken(),
+        errors,
+        user: { email }
+    });
+}
+
+// ! Formulario: Recupera contraseña exitosamente
+const resetPassword = async ( request, response ) => {
+    const { body: { email } } = request;
+
+    console.log( email );
+
+    // response.json( user );
+
+    response.render( './auth/recover-password', {
+        name_page: 'Recuperar contraseña',
+        csrf_token: request.csrfToken()
+    });
+}
+
+// ! Página: Confirmacion de cuenta registrada
 const confirmAccount = async ( request, response ) => {
     const { locals: { user } } = response;
 
@@ -75,6 +107,6 @@ const confirmAccount = async ( request, response ) => {
 export {
     formLogin,
     formRegister, userRegisterErrors, registerUser,
-    formRecoverPassword,
+    formRecoverPassword, resetPasswordErrors, resetPassword,
     confirmAccount
 }

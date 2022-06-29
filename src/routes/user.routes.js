@@ -1,12 +1,12 @@
 import express from 'express';
 
-import { validateRegisterUser } from '../middlewares/validators/user.js';
+import { validateRegisterUser, validateResetPassword } from '../middlewares/validators/user.js';
 import { verifyConfirmationToken } from '../middlewares/verifyConfirmationToken.js';
 
 import { 
     formLogin, 
     formRegister, registerUser,
-    formRecoverPassword,
+    formRecoverPassword, resetPassword,
     confirmAccount
 } from '../controllers/user.controller.js';
 
@@ -19,7 +19,9 @@ router.route( '/register' )
     .get( formRegister )
     .post( validateRegisterUser, registerUser );
 
-router.get( '/recover-password', formRecoverPassword );
+router.route( '/recover-password' )
+    .get( formRecoverPassword )
+    .post( validateResetPassword, resetPassword );
 
 router.get( 
     '/confirm-account/:token', 

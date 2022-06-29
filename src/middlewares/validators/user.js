@@ -1,9 +1,11 @@
 import { check } from 'express-validator';
 import { validateResult } from '../../helpers/validate.helper.js';
 
-import { userRegisterErrors } from '../../controllers/user.controller.js';
+import { userRegisterErrors, resetPasswordErrors } from '../../controllers/user.controller.js';
 import User from '../../models/User.js';
 
+
+// ! Validaciones: Formulario registro de usuario
 const validateRegisterUser = [
     check( 'name' )
         .exists()           // ! Valida si existe el campo
@@ -47,6 +49,31 @@ const validateRegisterUser = [
     }
 ];
 
+
+// ! Validaciones: Formulario recuperar contraseña
+const validateResetPassword = [
+    check( 'email' )
+        .exists()
+        .not().isEmpty()   // ! Otra forma: .notEmpty()
+            .withMessage( 'Email is required' )
+        .isEmail()
+            .withMessage( 'Invalid email format' )
+        .custom( async value => {
+            const user = await User.findOne({ where: { email: value } });
+            
+            if ( ! user ) throw new Error( 'Unregistered email' );
+        }),
+    ( request, response, next ) => {
+        const errors = validateResult( request, response, next );
+
+        console.log( errors );
+
+        if( errors )
+            resetPasswordErrors( request, response, errors );
+    }
+];
+
 export {
-    validateRegisterUser
+    validateRegisterUser,
+    validateResetPassword
 }
