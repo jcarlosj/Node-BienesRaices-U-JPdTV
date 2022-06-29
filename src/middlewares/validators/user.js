@@ -1,7 +1,7 @@
 import { check } from 'express-validator';
 import { validateResult } from '../../helpers/validate.helper.js';
 
-import { userRegisterErrors, resetPasswordErrors } from '../../controllers/user.controller.js';
+import { userRegisterErrors, resetPasswordErrors, changePasswordErrors } from '../../controllers/user.controller.js';
 import User from '../../models/User.js';
 
 
@@ -79,7 +79,40 @@ const validateResetPassword = [
     }
 ];
 
+
+// ! Validaciones: Formulario cambiar contraseña
+const validateChangePassword = [
+    check( 'new_password' )
+        .exists()
+        .not().isEmpty()   // ! Otra forma: .notEmpty()
+            .withMessage( 'Password is required' )
+        .isLength({ min: 6, max: 12 })
+            .withMessage( 'Password must be between 6 and 12 characters long' ),
+    check( 'confirm_new_password' )
+        .custom( ( value, { req } ) => {
+
+            console.log( value, ' : ', req.body.password );
+
+            if ( value !== req.body.new_password ) {
+                throw new Error( 'Password confirmation is incorrect' );
+            }
+
+            return true;
+        }),
+    ( request, response, next ) => {
+        const errors = validateResult( request, response, next );
+
+        console.log( errors );
+
+        if( errors )
+            changePasswordErrors( request, response, errors );
+    }
+];
+
+
+
 export {
     validateRegisterUser,
-    validateResetPassword
+    validateResetPassword,
+    validateChangePassword
 }

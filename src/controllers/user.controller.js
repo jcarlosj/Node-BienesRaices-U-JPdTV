@@ -99,6 +99,39 @@ const resetPassword = async ( request, response ) => {
     });
 }
 
+const formChangePassword = ( request, response ) => {
+    const { params: { token } } = request;
+
+    response.render( './auth/register-new-password', {
+        name_page: 'Cambiar contraseña',
+        csrf_token: request.csrfToken(),
+        data: { token }
+    });
+}
+
+// ! Formulario: Registro de usuario (Errores) 
+const changePasswordErrors = ( request, response, errors ) => {
+    const
+        { body: { new_password, confirm_new_password } } = request,
+        { params: { token } } = request;
+
+    response.render( './auth/register-new-password', {
+        name_page: 'Registro',
+        csrf_token: request.csrfToken(),
+        errors,
+        data: { token, new_password, confirm_new_password }
+    });
+}
+
+const generateNewPassword = ( request, response ) => {
+    const { params: { token }, body: { new_password } } = request;
+
+    response.send({ 
+        password: new_password,
+        token
+    });
+}
+
 // ! Página: Confirmacion de cuenta registrada
 const confirmAccount = async ( request, response ) => {
     const { locals: { user } } = response;
@@ -118,5 +151,6 @@ export {
     formLogin,
     formRegister, userRegisterErrors, registerUser,
     formRecoverPassword, resetPasswordErrors, resetPassword,
-    confirmAccount
+    confirmAccount,
+    formChangePassword, changePasswordErrors, generateNewPassword
 }
