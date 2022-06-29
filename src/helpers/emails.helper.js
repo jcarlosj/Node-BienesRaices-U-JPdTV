@@ -4,6 +4,7 @@ import transporter from '../config/nodemailer.js';
 
 dotenv.config({ path: '.env' });
 
+
 const sendConfirmationEmail = async ( data ) => {
     const
         { name, email, token } = data,
@@ -23,6 +24,26 @@ const sendConfirmationEmail = async ( data ) => {
 }
 
 
+const sendPasswordChangeConfirmation = async ( data ) => {
+    const
+        { name, email, token } = data,
+        url = `${ process.env.BASE_URL }:${ process.env.PORT || 4000 }/auth/recover-password/${ token }`;
+
+    await transporter.sendMail({
+        from: 'BienesRaices',
+        to: email,
+        subject: 'Restablece tu contraseña en BienesRaices',
+        text: 'Restablece tu contraseña en BienesRaices',
+        html: `
+            <p>Hola, ${ name } ¿Has solicitado reestablecer o recuperar tu contraseña?</p>
+            <p>Puedes recuperar tu contraseña al hacer click en <a href="${ url }">cambiar contraseña</a></p>
+            <p>Si no has sido tú quien realizó la solicitud de cambio de contraseña, puedes ignorar este mensaje</p>
+        `
+    });
+}
+
+
 export {
-    sendConfirmationEmail
+    sendConfirmationEmail,
+    sendPasswordChangeConfirmation
 }

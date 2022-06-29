@@ -1,6 +1,6 @@
 import User from '../models/User.js';
 import { generateRandomString } from '../helpers/generate.token.js';
-import { sendConfirmationEmail } from '../helpers/emails.helper.js';
+import { sendConfirmationEmail, sendPasswordChangeConfirmation } from '../helpers/emails.helper.js';
 
 // ! Formulario: Login
 const formLogin = ( request, response ) => {
@@ -77,15 +77,25 @@ const resetPasswordErrors = ( request, response, errors ) => {
 
 // ! Formulario: Recupera contraseña exitosamente
 const resetPassword = async ( request, response ) => {
-    const { body: { email } } = request;
+    const { body: { email }, user } = request;
 
     console.log( email );
+    console.log( user );
+
+     /** Registramos cambios al confirmar la existencia del correo registrado */
+    user.token = generateRandomString();
+    await user.save();
 
     // response.json( user );
+    sendPasswordChangeConfirmation({
+        name: user.name,
+        email: user.email,
+        token: user.token
+    });
 
-    response.render( './auth/recover-password', {
-        name_page: 'Recuperar contraseña',
-        csrf_token: request.csrfToken()
+    response.render( './auth/register-confirmation', {
+        name_page: 'Recupera tu contraseña',
+        message: 'Hemos enviado un e-mail de confirmación, presiona en el enlace para cambiar tu contraseña.'
     });
 }
 

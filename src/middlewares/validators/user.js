@@ -58,18 +58,24 @@ const validateResetPassword = [
             .withMessage( 'Email is required' )
         .isEmail()
             .withMessage( 'Invalid email format' )
-        .custom( async value => {
+        .custom( async ( value, { req  } ) => {
             const user = await User.findOne({ where: { email: value } });
             
-            if ( ! user ) throw new Error( 'Unregistered email' );
+            if ( ! user )
+                throw new Error( 'Unregistered email' );
+            else
+                req.user = user;
+
+            return true;
         }),
     ( request, response, next ) => {
         const errors = validateResult( request, response, next );
 
         console.log( errors );
+        // console.log( response );
 
         if( errors )
-            resetPasswordErrors( request, response, errors );
+            resetPasswordErrors( request, response, errors );            
     }
 ];
 
