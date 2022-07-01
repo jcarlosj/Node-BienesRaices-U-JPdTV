@@ -117,10 +117,13 @@ const validateLoginUser = [
             .withMessage( 'Email is required' )
         .isEmail()
             .withMessage( 'Invalid email format' )
-        .custom( async value => {
+        .custom( async ( value, { req } ) => {
             const user = await User.findOne({ where: { email: value } });
             
-            if ( ! user ) throw new Error( 'Unregistered email' );
+            if ( ! user )
+                throw new Error( 'Unregistered email' );
+            else
+                req.user = user;
         }),
     check( 'password' )
         .exists()

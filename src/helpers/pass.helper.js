@@ -7,6 +7,12 @@ const hashPassword = async ( pass ) => {
     return await bcrypt.hash( pass, salt );
 }
 
+const verifyPassword = ( pass, current_pass ) => {
+    
+    return bcrypt.compareSync( pass, current_pass );
+}
+
 export {
-    hashPassword
+    hashPassword,
+    verifyPassword
 }

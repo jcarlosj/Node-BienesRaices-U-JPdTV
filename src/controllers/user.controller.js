@@ -25,11 +25,13 @@ const loginErrors = ( request, response, errors ) => {
 // ! Formulario: Login exitoso
 const signIn = ( request, response ) => {
 
-    const { body: { email, password } } = request;
+    const { body: { email, password }, user } = request;
     
     console.log({ email, password });
+    console.log( user );
+    console.log( 'Se Loguea!' );
 
-    response.send({ email, password });
+    return;
 }
 
 // ! Formulario: Registro de usuario

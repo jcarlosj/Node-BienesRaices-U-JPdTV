@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { hashPassword } from '../helpers/pass.helper.js';
+import { hashPassword, verifyPassword } from '../helpers/pass.helper.js';
 
 import db from '../config/sequelize.js';
 
@@ -34,6 +34,11 @@ const User = db.define( 'Users', {
 User.prototype.hashPassword = async function ( pass ) {
 
     return await hashPassword( pass );
+}
+
+User.prototype.verifyPassword = function ( pass ) {
+
+    return verifyPassword( pass, this.password );
 }
 
 
