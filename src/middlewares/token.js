@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 
 
-const verifyConfirmationToken = async ( request, response, next ) => {
+const isValidToken = async ( request, response, next ) => {
     const { params: { token } } = request;
 
     const user = await User.findOne({
@@ -24,5 +24,5 @@ const verifyConfirmationToken = async ( request, response, next ) => {
 
 
 export {
-    verifyConfirmationToken
+    isValidToken
 }

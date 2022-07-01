@@ -4,7 +4,7 @@ import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 
 import db from './src/config/sequelize.js';
-import userRoutes from './src/routes/user.routes.js';
+import authRoutes from './src/routes/auth.routes.js';
 
 dotenv.config({ path: '.env' });
 
@@ -12,7 +12,7 @@ const
     PORT = process.env.PORT || 4000,
     app = express();
 
-app.use( express.urlencoded({ extended: true }) );  // ! Habilita JSON
+app.use( express.urlencoded({ extended: true }) );  // ! Habilita analisis los datos codificados en URL (permite una experiencia similar a JSON con codificación URL)
 app.use( cookieParser() );                          // ! Habilita CookieParser
 app.use( csrf({ cookie: true }) );                  // ! Habilita CSRF con uso de cookies
 
@@ -33,7 +33,7 @@ app.set( 'views', './src/views' );      // ! Habilita directorio de las vistas
 app.use( express.static( 'public' ) );  // ! Habilita directorio para archivos publicos
 
 // * Routing
-app.use( '/auth', userRoutes );
+app.use( '/auth', authRoutes );
 
 app.listen( PORT, () => {
     console.log( `Listening on port ${ PORT }` );

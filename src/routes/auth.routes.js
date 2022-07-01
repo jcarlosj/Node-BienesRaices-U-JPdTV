@@ -1,8 +1,8 @@
 import express from 'express';
 
-import { validateRegisterUser, validateResetPassword, validateChangePassword, validateLoginUser } from '../middlewares/validators/user.js';
-import { verifyConfirmationToken } from '../middlewares/verifyConfirmationToken.js';
-import { isConfirmedEmail, isValidPassword } from '../middlewares/authUser.js';
+import { validateFormRegister, validateFormRecoverPassword, validateFormChangePassword, validateLoginUser } from '../middlewares/validators/auth.js';
+import { isValidToken } from '../middlewares/token.js';
+import { isConfirmedEmail, isValidPassword } from '../middlewares/user.js';
 
 import { 
     formLogin, signIn, 
@@ -26,19 +26,19 @@ router.route( '/login' )
 
 router.route( '/register' )
     .get( formRegister )
-    .post( validateRegisterUser, registerUser );
+    .post( validateFormRegister, registerUser );
 
 router.route( '/recover-password' )
     .get( formRecoverPassword )
-    .post( validateResetPassword, resetPassword );
+    .post( validateFormRecoverPassword, resetPassword );
 
 router.route( '/recover-password/:token' )
-    .get( verifyConfirmationToken, formChangePassword )
-    .post( validateChangePassword, changePassword );
+    .get( isValidToken, formChangePassword )
+    .post( validateFormChangePassword, changePassword );
 
 router.get( 
     '/confirm-account/:token', 
-    verifyConfirmationToken,
+    isValidToken,
     confirmAccount 
 );
 

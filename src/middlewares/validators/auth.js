@@ -1,12 +1,12 @@
 import { check } from 'express-validator';
 import { validateResult } from '../../helpers/validate.helper.js';
 
-import { userRegisterErrors, resetPasswordErrors, changePasswordErrors, loginErrors } from '../../controllers/user.controller.js';
+import { formRegisterWithErrors, formRecoverPasswordWithErrors, formChangePasswordWithErrors, formLoginWithErrors } from '../../controllers/user.controller.js';
 import User from '../../models/User.js';
 
 
 // ! Validaciones: Formulario registro de usuario
-const validateRegisterUser = [
+const validateFormRegister = [
     check( 'name' )
         .exists()           // ! Valida si existe el campo
         .notEmpty()         // ! Otra forma:    .not().isEmpty()
@@ -45,13 +45,13 @@ const validateRegisterUser = [
         console.log( errors );
 
         if( errors )
-            userRegisterErrors( request, response, errors );
+            formRegisterWithErrors( request, response, errors );
     }
 ];
 
 
 // ! Validaciones: Formulario recuperar contraseña
-const validateResetPassword = [
+const validateFormRecoverPassword = [
     check( 'email' )
         .exists()
         .not().isEmpty()   // ! Otra forma: .notEmpty()
@@ -75,13 +75,13 @@ const validateResetPassword = [
         // console.log( response );
 
         if( errors )
-            resetPasswordErrors( request, response, errors );            
+            formRecoverPasswordWithErrors( request, response, errors );            
     }
 ];
 
 
 // ! Validaciones: Formulario cambiar contraseña
-const validateChangePassword = [
+const validateFormChangePassword = [
     check( 'new_password' )
         .exists()
         .not().isEmpty()   // ! Otra forma: .notEmpty()
@@ -105,7 +105,7 @@ const validateChangePassword = [
         console.log( errors );
 
         if( errors )
-            changePasswordErrors( request, response, errors );
+            formChangePasswordWithErrors( request, response, errors );
     }
 ];
 
@@ -135,15 +135,15 @@ const validateLoginUser = [
         console.log( errors );
 
         if( errors )
-            loginErrors( request, response, errors );
+            formLoginWithErrors( request, response, errors );
     }
 ];
 
 
 
 export {
-    validateRegisterUser,
-    validateResetPassword,
-    validateChangePassword,
+    validateFormRegister,
+    validateFormRecoverPassword,
+    validateFormChangePassword,
     validateLoginUser
 }

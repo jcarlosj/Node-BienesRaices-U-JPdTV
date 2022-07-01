@@ -1,5 +1,5 @@
 import User from '../models/User.js';
-import { generateRandomString } from '../helpers/generate.token.js';
+import { generateRandomString } from '../helpers/token.helper.js';
 import { sendConfirmationEmail, sendPasswordChangeConfirmation } from '../helpers/emails.helper.js';
 
 // ! Formulario: Login
@@ -11,7 +11,7 @@ const formLogin = ( request, response ) => {
 }
 
 // ! Formulario: Login (Errores)
-const loginErrors = ( request, response, errors ) => {
+const formLoginWithErrors = ( request, response, errors ) => {
     const { body: { email, password } } = request;
 
     response.render( './auth/form-login', {
@@ -45,7 +45,7 @@ const formRegister = ( request, response ) => {
 }
 
 // ! Formulario: Registro de usuario (Errores) 
-const userRegisterErrors = ( request, response, errors ) => {
+const formRegisterWithErrors = ( request, response, errors ) => {
     const { body: { name, email, password, confirm_password } } = request;
 
     response.render( './auth/form-register-user', {
@@ -89,7 +89,7 @@ const formRecoverPassword = ( request, response ) => {
 }
 
 // ! Formulario: Recuperar contraseña (Errores)
-const resetPasswordErrors = ( request, response, errors ) => {
+const formRecoverPasswordWithErrors = ( request, response, errors ) => {
     const { body: { email } } = request;
 
     response.render( './auth/form-recover-password', {
@@ -136,7 +136,7 @@ const formChangePassword = ( request, response ) => {
 }
 
 // ! Formulario: Cambiar contraseña (Errores) 
-const changePasswordErrors = ( request, response, errors ) => {
+const formChangePasswordWithErrors = ( request, response, errors ) => {
     const
         { body: { new_password, confirm_new_password } } = request,
         { params: { token } } = request;
@@ -184,9 +184,9 @@ const confirmAccount = async ( request, response ) => {
 }
 
 export {
-    formLogin, loginErrors, signIn,
-    formRegister, userRegisterErrors, registerUser,
-    formRecoverPassword, resetPasswordErrors, resetPassword,
+    formLogin, formLoginWithErrors, signIn,
+    formRegister, formRegisterWithErrors, registerUser,
+    formRecoverPassword, formRecoverPasswordWithErrors, resetPassword,
     confirmAccount,
-    formChangePassword, changePasswordErrors, changePassword
+    formChangePassword, formChangePasswordWithErrors, changePassword
 }
