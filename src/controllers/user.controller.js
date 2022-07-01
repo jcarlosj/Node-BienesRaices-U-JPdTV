@@ -24,9 +24,12 @@ const loginErrors = ( request, response, errors ) => {
 
 // ! Formulario: Login exitoso
 const signIn = ( request, response ) => {
+
+    const { body: { email, password } } = request;
     
-    console.log( 'Usuario logueado... ' );
-    response.send( 'Usuario logueado... ' );
+    console.log({ email, password });
+
+    response.send({ email, password });
 }
 
 // ! Formulario: Registro de usuario
