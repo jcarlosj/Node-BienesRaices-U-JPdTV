@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { validateRegisterUser, validateResetPassword, validateChangePassword } from '../middlewares/validators/user.js';
+import { validateRegisterUser, validateResetPassword, validateChangePassword, validateLoginUser } from '../middlewares/validators/user.js';
 import { verifyConfirmationToken } from '../middlewares/verifyConfirmationToken.js';
 
 import { 
@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.route( '/login' )
     .get( formLogin )
-    .post( signIn );
+    .post( validateLoginUser, signIn );
 
 router.route( '/register' )
     .get( formRegister )

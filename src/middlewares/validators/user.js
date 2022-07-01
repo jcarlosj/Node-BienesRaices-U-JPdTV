@@ -1,7 +1,7 @@
 import { check } from 'express-validator';
 import { validateResult } from '../../helpers/validate.helper.js';
 
-import { userRegisterErrors, resetPasswordErrors, changePasswordErrors } from '../../controllers/user.controller.js';
+import { userRegisterErrors, resetPasswordErrors, changePasswordErrors, loginErrors } from '../../controllers/user.controller.js';
 import User from '../../models/User.js';
 
 
@@ -109,10 +109,38 @@ const validateChangePassword = [
     }
 ];
 
+// ! Validaciones: Formulario de Login
+const validateLoginUser = [
+    check( 'email' )
+        .exists()
+        .not().isEmpty()   // ! Otra forma: .notEmpty()
+            .withMessage( 'Email is required' )
+        .isEmail()
+            .withMessage( 'Invalid email format' )
+        .custom( async value => {
+            const user = await User.findOne({ where: { email: value } });
+            
+            if ( ! user ) throw new Error( 'Unregistered email' );
+        }),
+    check( 'password' )
+        .exists()
+        .not().isEmpty()   // ! Otra forma: .notEmpty()
+            .withMessage( 'Password is required' ),
+    ( request, response, next ) => {
+        const errors = validateResult( request, response, next );
+
+        console.log( errors );
+
+        if( errors )
+            loginErrors( request, response, errors );
+    }
+];
+
 
 
 export {
     validateRegisterUser,
     validateResetPassword,
-    validateChangePassword
+    validateChangePassword,
+    validateLoginUser
 }

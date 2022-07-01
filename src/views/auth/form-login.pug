@@ -6,6 +6,11 @@ block page_body
         h1( class="text-4xl my-10 font-extrabold text-center" ) Bienes
             span( class="font-normal" ) Raices
         h2( class="text-center text-2xl" ) #{ name_page }
+
+        if errors 
+            .max-w-md.mx-auto.my-10
+                each err in errors
+                    p( class="bg-red-500 text-white text-center text-xs rounded shadow p-2 mb-1" ) #{ err.msg }
         
         .mt-8.mx-auto.max-w-md
             .bg-white.py-8.px-4.shadow.rounded-md
@@ -15,10 +20,10 @@ block page_body
 
                     div 
                         label( for="email" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Email
-                        input( type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="evasofia@correo.co" )
+                        input( type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="evasofia@correo.co" value=`${ user ? user.email : '' }` )
                     div 
                         label( for="password" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Contraseña
-                        input( type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" )
+                        input( type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="**********" value=`${ user ? user.password : '' }` )
 
                     .flex.items-center.justify-between.text-gray-500.text-xs
                         span ¿Ya tienes cuenta? 

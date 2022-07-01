@@ -10,11 +10,23 @@ const formLogin = ( request, response ) => {
     });
 }
 
-// ! Formulario: Login exitoso
-const signIn = ( request, response ) => {
+// ! Formulario: Login (Errores)
+const loginErrors = ( request, response, errors ) => {
     const { body: { email, password } } = request;
 
-    response.send({ email, password });
+    response.render( './auth/form-login', {
+        name_page: 'Login',
+        csrf_token: request.csrfToken(),
+        errors,
+        user: { email, password }
+    });
+}
+
+// ! Formulario: Login exitoso
+const signIn = ( request, response ) => {
+    
+    console.log( 'Usuario logueado... ' );
+    response.send( 'Usuario logueado... ' );
 }
 
 // ! Formulario: Registro de usuario
@@ -167,7 +179,7 @@ const confirmAccount = async ( request, response ) => {
 }
 
 export {
-    formLogin, signIn,
+    formLogin, loginErrors, signIn,
     formRegister, userRegisterErrors, registerUser,
     formRecoverPassword, resetPasswordErrors, resetPassword,
     confirmAccount,
