@@ -5,8 +5,16 @@ import { sendConfirmationEmail, sendPasswordChangeConfirmation } from '../helper
 // ! Formulario: Login
 const formLogin = ( request, response ) => {
     response.render( './auth/form-login', {
-        name_page: 'Login'
+        name_page: 'Login',
+        csrf_token: request.csrfToken()
     });
+}
+
+// ! Formulario: Login exitoso
+const signIn = ( request, response ) => {
+    const { body: { email, password } } = request;
+
+    response.send({ email, password });
 }
 
 // ! Formulario: Registro de usuario
@@ -159,7 +167,7 @@ const confirmAccount = async ( request, response ) => {
 }
 
 export {
-    formLogin,
+    formLogin, signIn,
     formRegister, userRegisterErrors, registerUser,
     formRecoverPassword, resetPasswordErrors, resetPassword,
     confirmAccount,

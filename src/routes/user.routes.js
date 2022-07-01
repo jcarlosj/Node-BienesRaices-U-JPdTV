@@ -4,7 +4,7 @@ import { validateRegisterUser, validateResetPassword, validateChangePassword } f
 import { verifyConfirmationToken } from '../middlewares/verifyConfirmationToken.js';
 
 import { 
-    formLogin, 
+    formLogin, signIn, 
     formRegister, registerUser,
     formRecoverPassword, resetPassword,
     confirmAccount,
@@ -14,7 +14,9 @@ import {
 const router = express.Router();
 
 
-router.get( '/login', formLogin );
+router.route( '/login' )
+    .get( formLogin )
+    .post( signIn );
 
 router.route( '/register' )
     .get( formRegister )

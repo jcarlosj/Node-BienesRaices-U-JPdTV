@@ -10,7 +10,9 @@ block page_body
         .mt-8.mx-auto.max-w-md
             .bg-white.py-8.px-4.shadow.rounded-md
 
-                form( class="space-y-5" )
+                form( class="space-y-5" method="post" action="/auth/login" novalidate )
+                    input( type="hidden" name="_csrf" value=`${ csrf_token }` )
+
                     div 
                         label( for="email" class="block text-sm uppercase text-gray-500 mb-2 font-bold") Email
                         input( type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="evasofia@correo.co" )
