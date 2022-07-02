@@ -26,15 +26,23 @@ const formLoginWithErrors = ( request, response, errors ) => {
 const signIn = ( request, response ) => {
 
     const { body: { email, password }, user } = request;
-    
     // console.log({ email, password });
     console.log( user.email, 'is logged in!' );
 
+    // ! Genera el Token
     const token = generateJWT( user );
-    console.log( token );
+    // console.log( token );
 
-
-    return;
+    // ! Guarda Token en una Cookie
+    return response.cookie( 
+        '_token',       // ? Nombre del Token
+        token,          // ? Valor o cadena del Tokem
+        {               // ? Opciones de configuracion para la cookie
+            httpOnly: true,     // ? Evita ataques CSRF haciendo que un cookie no sea accesible desde la API de JavaScript
+            //secure: true,     // ? Admite cookies en conexiones seguras (SSL o HTTPS), generamente se habilita en el Deployment
+            //sameSite: true,   // ? Admite cookies en conexiones seguras (SSL o HTTPS), generamente se habilita en el Deployment
+        })
+        .redirect( '/my-real-estate' );     // ? Redireccion
 }
 
 // ! Formulario: Registro de usuario
