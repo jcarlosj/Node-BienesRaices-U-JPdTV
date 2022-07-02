@@ -1,5 +1,5 @@
 import User from '../models/User.js';
-import { generateRandomString } from '../helpers/token.helper.js';
+import { generateRandomString, generateJWT } from '../helpers/token.helper.js';
 import { sendConfirmationEmail, sendPasswordChangeConfirmation } from '../helpers/emails.helper.js';
 
 // ! Formulario: Login
@@ -27,9 +27,12 @@ const signIn = ( request, response ) => {
 
     const { body: { email, password }, user } = request;
     
-    console.log({ email, password });
-    console.log( user );
-    console.log( 'Se Loguea!' );
+    // console.log({ email, password });
+    console.log( user.email, 'is logged in!' );
+
+    const token = generateJWT( user );
+    console.log( token );
+
 
     return;
 }
