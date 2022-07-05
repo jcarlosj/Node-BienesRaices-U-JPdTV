@@ -1,0 +1,10 @@
+extends ../layout/index
+
+//- Define bloque de contenido de la pagina
+block page_body
+    .py-10
+        h1( class="text-4xl my-10 font-extrabold text-center" ) Bienes
+            span( class="font-normal" ) Raices
+        h2( class="text-center text-2xl" ) #{ name_page }
+
+        a( href="/real-estate/create" class="bg-indigo-400 hover:bg-indigo-600 rounded text-white text-sm text-center py-2 px-10 my-5 inline-block w-full sm:w-auto") Crear propiedad

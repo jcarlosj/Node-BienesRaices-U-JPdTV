@@ -42,7 +42,7 @@ const signIn = ( request, response ) => {
             //secure: true,     // ? Admite cookies en conexiones seguras (SSL o HTTPS), generamente se habilita en el Deployment
             //sameSite: true,   // ? Admite cookies en conexiones seguras (SSL o HTTPS), generamente se habilita en el Deployment
         })
-        .redirect( '/my-real-estate' );     // ? Redireccion
+        .redirect( '/real-estate' );     // ? Redireccion
 }
 
 // ! Formulario: Registro de usuario

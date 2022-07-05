@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import db from './src/config/sequelize.js';
 import authRoutes from './src/routes/auth.routes.js';
+import realEstateRoutes from './src/routes/real-estate.routes.js';
 
 dotenv.config({ path: '.env' });
 
@@ -34,6 +35,7 @@ app.use( express.static( 'public' ) );  // ! Habilita directorio para archivos p
 
 // * Routing
 app.use( '/auth', authRoutes );
+app.use( '/', realEstateRoutes );
 
 app.listen( PORT, () => {
     console.log( `Listening on port ${ PORT }` );
