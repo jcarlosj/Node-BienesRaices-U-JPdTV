@@ -8,6 +8,11 @@ html(lang="en")
         link(rel="stylesheet", href="/css/main.css")
 
     body(class="min-h-screen bg-gray-50") 
-        main(class="mx-auto container mt-10 px-2")
+
+        if isLoggedIn
+            //- header es el nombre del archivo dentro del mismo directorio
+            include header
+
+        main( class="mx-auto container mt-10 px-2" )
             //- Bloque donde los templates inyectaran su contenido 
             block page_body     
