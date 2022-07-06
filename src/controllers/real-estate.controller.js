@@ -5,7 +5,15 @@ const admin = ( request, response ) => {
     } );
 }
 
+const formCreate = ( request, response ) => {
+    response.render( 'real-estate/form-create', {
+        name_page: 'Crear propiedad', 
+        isLoggedIn: true
+    });
+}
+
 
 export {
-    admin
+    admin,
+    formCreate
 }
