@@ -791,14 +791,6 @@ video {
     width: 33.333333%;
   }
 
-  .md\:w-1 {
-    width: 0.25rem;
-  }
-
-  .md\:w-2 {
-    width: 0.5rem;
-  }
-
   .md\:items-center {
     align-items: center;
   }
