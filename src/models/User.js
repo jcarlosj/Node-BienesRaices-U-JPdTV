@@ -4,7 +4,7 @@ import { hashPassword, verifyPassword } from '../helpers/pass.helper.js';
 import db from '../config/sequelize.js';
 
 
-const User = db.define( 'Users', {
+const User = db.define( 'users', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,       // NOT-NULL

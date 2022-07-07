@@ -4,7 +4,7 @@ import db from '../config/sequelize.js';
 
 
 const Price = db.define( 'prices', {
-    name: {
+    range: {
         type: DataTypes.STRING( 30 ),
         allowNull: false,       // NOT-NULL
     }
