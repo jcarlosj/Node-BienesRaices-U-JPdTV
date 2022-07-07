@@ -38,6 +38,11 @@
 
             marker.bindPopup( `Ubicación: \n ${ result.address.LongLabel }` );  // ? Popup al pin con un mensaje
             console.log( result );
+
+            document.querySelector( '.street-name' ).textContent = result?.address?.Address ?? '';
+            document.querySelector( '#street-name' ).value = result?.address?.Address ?? '';
+            document.querySelector( '#lat' ).value = result?.latlng?.lat ?? '';
+            document.querySelector( '#lng' ).value = result?.latlng?.lng ?? '';
         });
     });
 

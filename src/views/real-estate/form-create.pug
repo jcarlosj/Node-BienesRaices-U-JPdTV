@@ -59,7 +59,17 @@ block page_body
                                     while ( n < 5 )
                                         option( value=`${ n }`) #{ n++ }
 
-                    #map( class="h-96" )
+                    .space-y-5.border-gray-200.border-t.py-5
+                        h3( class="text-lg leading-6 font-medium text-gray-900" ) Ubicación
+                        p( class="text-gray-600" ) Agrega la posición de tu propiedad en el mapa
+                        #map( class="h-96" )
+                        div
+                            p( class="street-name" )
+
+                        //- Campos ocultos para contener la data requerida del mapa para registrar
+                        input( type="hidden" name="street_name" id="street-name" )
+                        input( type="hidden" name="lat" id="lat" )
+                        input( type="hidden" name="lng" id="lng" )
 
                     div 
                         input( type="submit" value="Registrar propiedad" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
