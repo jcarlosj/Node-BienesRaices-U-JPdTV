@@ -25,6 +25,10 @@ block page_body
                         label( for="title" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Título del anuncio
                         input( type="text" id="title" name="title" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Ej: Casa en la playa" )
 
+                    div 
+                        label( for="description" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Descripción de la propiedad
+                        textarea( id="description" name="description" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Ej: Esta casa tiene playa privada e muelle..." )
+
                     div( class="md:flex md:gap-4 md:space-y-0 space-y-5" )
                         div( class="md:w-1/2" )
                             label( for="category" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Categoría
@@ -46,7 +50,7 @@ block page_body
                                         option( value=`${ n }`) #{ n++ }
                         div( class="md:w-1/3" )
                             label( for="parking-lot" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Estacionamientos
-                            select( type="text" id="parking-lot" name="parking-lot" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
+                            select( type="text" id="parking-lot" name="parking_lot" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
                                 - var n = 1
                                     while ( n < 5 )
