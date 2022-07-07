@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize';
 import db from '../config/sequelize.js';
 
 
-const RealEstate = db.define( 'RealEstates', {
+const RealEstate = db.define( 'realestate', {
     id: {
         type: DataTypes.UUID,
         defaulValue: DataTypes.UUIDV4,

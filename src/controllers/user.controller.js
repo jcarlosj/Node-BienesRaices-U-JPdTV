@@ -1,4 +1,5 @@
-import User from '../models/User.js';
+import { User } from '../models/index.js';
+
 import { generateRandomString, generateJWT } from '../helpers/token.helper.js';
 import { sendConfirmationEmail, sendPasswordChangeConfirmation } from '../helpers/emails.helper.js';
 

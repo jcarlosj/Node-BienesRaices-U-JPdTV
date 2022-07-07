@@ -2,8 +2,7 @@ import { exit } from 'node:process';
 
 import db from '../config/sequelize.js';
 
-import Category from '../models/Category.js';
-import Price from '../models/Price.js';
+import { Category, Price } from '../models/index.js';
 
 import categories from './categories.js';
 import prices from './prices.js';
@@ -15,7 +14,7 @@ const dataSeeder = async () => {
         await db.authenticate();                    // ? Autenticacion Sequelize (Inicia la conexion con la BD)
         await db.sync();                            // ? Establese una sincronizacion (Genera la estructura de datos)
 
-        await Promise.all([                            // ? Inserta los datos
+        await Promise.all([                         // ? Inserta los datos
             Category.bulkCreate( categories ),      // ! Inserta Categorias establecidas por defecto
             Price.bulkCreate( prices )              // ! Inserta Precios establecidos por defecto
         ]);

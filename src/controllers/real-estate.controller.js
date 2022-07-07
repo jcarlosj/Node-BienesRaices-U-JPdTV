@@ -1,5 +1,4 @@
-import Category from '../models/Category.js';
-import Price from '../models/Price.js';
+import { Category, Price } from '../models/index.js';
 
 
 const admin = ( request, response ) => {

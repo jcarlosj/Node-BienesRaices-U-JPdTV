@@ -2,7 +2,7 @@ import { check } from 'express-validator';
 import { validateResult } from '../../helpers/validate.helper.js';
 
 import { formRegisterWithErrors, formRecoverPasswordWithErrors, formChangePasswordWithErrors, formLoginWithErrors } from '../../controllers/user.controller.js';
-import User from '../../models/User.js';
+import { User } from '../../models/index.js';
 
 
 // ! Validaciones: Formulario registro de usuario
