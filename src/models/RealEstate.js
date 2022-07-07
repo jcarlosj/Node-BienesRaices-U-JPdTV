@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 import db from '../config/sequelize.js';
 
-
+// ! NOTA: Por defecto el ORM de Sequelize agrega plurales a los nombres de las tablas
 const RealEstate = db.define( 'realestate', {
     id: {
         type: DataTypes.UUID,
