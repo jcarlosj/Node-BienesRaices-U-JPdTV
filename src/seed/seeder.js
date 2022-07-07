@@ -30,8 +30,32 @@ const dataSeeder = async () => {
     }
 }
 
+const removeSeededData = async () => {
+    try {
+
+        // ! Truncate tables (Form 1)
+        // await Promise.all([
+        //     Category.destroy({ where: {}, truncate }),
+        //     Price.destroy({ where: {}, truncate })
+        // ]);
+
+        // ! Drop & create tables (Form 2)
+        await db.sync({ force: true });
+
+        console.log( 'Datos sembrados se han eliminado correctamente!' );
+
+        exit();                                     // ? Finaliza proceso exitosamente
+    }
+    catch( error ) {
+        
+    }
+}
+
 
 // ! Comando definido en el script db:seed [ 'node', ' ./src/seed/seeder.js', '-i' ] en el package.json
 if( process.argv[ 2 ] === '-i' ) {
     dataSeeder();
+}
+if( process.argv[ 2 ] === '-d' ) {
+    removeSeededData();
 }

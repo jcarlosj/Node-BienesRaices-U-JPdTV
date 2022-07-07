@@ -10,7 +10,8 @@
     "css": "postcss ./public/css/tailwind.css -o ./public/css/main.css --watch",
     "js": "webpack --watch",
     "dev": "concurrently \"npm run css\" \"npm run js\" ",
-    "db:seed": "node ./src/seed/seeder.js -i"
+    "db:add-seed": "node ./src/seed/seeder.js -i",
+    "db:del-seed": "node ./src/seed/seeder.js -d"
   },
   "keywords": [
     "Node",
