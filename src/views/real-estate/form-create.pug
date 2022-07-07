@@ -1,5 +1,8 @@
 extends ../layout/index
 
+block styles
+    link( rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" )
+
 //- Define bloque de contenido de la pagina
 block page_body
     .py-10
@@ -55,6 +58,8 @@ block page_body
                                 - var n = 1
                                     while ( n < 5 )
                                         option( value=`${ n }`) #{ n++ }
+
+                    #map( class="h-96" )
 
                     div 
                         input( type="submit" value="Registrar propiedad" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
