@@ -12,8 +12,7 @@ const User = db.define( 'users', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,       // NOT-NULL
-    }
-    ,
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false,       // NOT-NULL
@@ -21,11 +20,21 @@ const User = db.define( 'users', {
     token: DataTypes.STRING,
     confirmed: DataTypes.BOOLEAN
 }, {
+    // ! Funciones que se llaman antes y después de que se ejecuten las llamadas en Sequelize
     hooks: {
         beforeCreate: async function( user ) {
             const { password } = user;
 
             user.password = await hashPassword( password );
+        }
+    },
+    // ! Permite definir consultas de uso comun
+    scopes: {
+        // ? Excluimos campos cuando se hace una consulta al modelo
+        noPasswordConfirmationToken: {    // ? Nombre que hemos dado a nuestro scope 
+            attributes: {
+                exclude: [ 'password', 'token', 'confirmed', 'createdAt', 'updatedAt' ]
+            }
         }
     }
 });
