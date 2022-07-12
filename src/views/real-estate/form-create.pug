@@ -10,6 +10,9 @@ block page_body
             span( class="font-normal" ) Raices
         h2( class="text-center text-2xl" ) #{ name_page }
 
+        pre( class="text-center my-10" )
+            code #{ JSON.stringify( data ) }
+
         if errors 
             .max-w-md.mx-auto.my-10
                 each err in errors
@@ -24,12 +27,12 @@ block page_body
                     p( class="text-gray-600" ) Agrega los detalles de la propiedad en venta
 
                     div 
-                        label( for="title" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Título del anuncio
-                        input( type="text" id="title" name="title" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Ej: Casa en la playa" )
+                        label( for="ad_title" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Título del anuncio
+                        input( type="text" id="ad_title" name="ad_title" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Ej: Casa en la playa" value=`${ data.title ? data.title : '' }` )
 
                     div 
                         label( for="description" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Descripción de la propiedad
-                        textarea( id="description" name="description" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Ej: Esta casa tiene playa privada e muelle..." )
+                        textarea( id="description" name="description" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" placeholder="Ej: Esta casa tiene playa privada e muelle..." ) #{ `${ data.description ? data.description : '' }` }
 
                     div( class="md:flex md:gap-4 md:space-y-0 space-y-5" )
                         div( class="md:w-1/2" )
@@ -37,14 +40,14 @@ block page_body
                             select( type="text" id="category" name="category" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
                                 each category in categories
-                                    option( value=`${ category.id }` ) #{ category.name }
+                                    option( value=`${ category.id }` selected= data.category ? data.category == category.id ? true : false : null ) #{ category.name }
 
                         div( class="md:w-1/2" )
                             label( for="price" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Precio
                             select( type="text" id="price" name="price" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
                                 each price in prices 
-                                    option( value=`${ price.id }` ) #{ price.range }
+                                    option( value=`${ price.id }` selected= data.price ? data.price == price.id ? true : false : null ) #{ price.range }
 
 
                     div( class="md:flex md:gap-4 md:space-y-0 space-y-5" )
@@ -54,21 +57,21 @@ block page_body
                                 option( value="" ) - Seleccione -
                                 - var n = 1
                                     while ( n < 5 )
-                                        option( value=`${ n }`) #{ n++ }
+                                        option( value=`${ n }` selected= data.bedrooms ? data.bedrooms == n ? true : false : null ) #{ n++ }
                         div( class="md:w-1/3" )
                             label( for="parking-lot" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Estacionamientos
                             select( type="text" id="parking-lot" name="parking_lot" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
                                 - var n = 1
                                     while ( n < 5 )
-                                        option( value=`${ n }`) #{ n++ }
+                                        option( value=`${ n }` selected= data.parking_lot ? data.parking_lot == n ? true : false : null ) #{ n++ }
                         div( class="md:w-1/3" )
                             label( for="wc" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Baños
                             select( type="text" id="wc" name="wc" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
                                 - var n = 1
                                     while ( n < 5 )
-                                        option( value=`${ n }`) #{ n++ }
+                                        option( value=`${ n }` selected= data.wc ? data.wc == n ? true : false : null ) #{ n++ }
 
                     .space-y-5.border-gray-200.border-t.py-5
                         h3( class="text-lg leading-6 font-medium text-gray-900" ) Ubicación
@@ -78,9 +81,9 @@ block page_body
                             p( class="street-name" )
 
                         //- Campos ocultos para contener la data requerida del mapa para registrar
-                        input( type="hidden" name="street_name" id="street-name" )
-                        input( type="hidden" name="lat" id="lat" )
-                        input( type="hidden" name="lng" id="lng" )
+                        input( type="hidden" name="street_name" id="street-name" value= data.street_name ? data.street_name : '' )
+                        input( type="hidden" name="lat" id="lat" value= data.lat ? data.lat : '' )
+                        input( type="hidden" name="lng" id="lng" value= data.lng ? data.lng : '' )
 
                     div 
                         input( type="submit" value="Registrar propiedad" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )

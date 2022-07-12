@@ -7,7 +7,7 @@ import { RealEstate } from '../../models/index.js';
 
 // ! Validaciones: Formulario registro de propiedades
 const validateFormCreate = [
-    check( 'title' )
+    check( 'ad_title' )
         .exists()           // ! Valida si existe el campo
         .notEmpty()         // ! Otra forma:    .not().isEmpty()
             .withMessage( 'Ad title is required' ),

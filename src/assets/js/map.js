@@ -1,7 +1,7 @@
 ( function() {
     const
-        lat = 4.7101416,
-        lng = -74.0720851,
+        lat = document.querySelector( '#lat ').value || 4.7101416,
+        lng = document.querySelector( '#lng ').value || -74.0720851,
         zoom = 15;
 
     const

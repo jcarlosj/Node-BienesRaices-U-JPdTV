@@ -1,4 +1,4 @@
-import { Category, Price } from '../models/index.js';
+import { Category, Price, RealEstate } from '../models/index.js';
 
 
 const admin = ( request, response ) => {
@@ -20,6 +20,7 @@ const formCreate = async ( request, response ) => {
     response.render( 'real-estate/form-create', {
         name_page: 'Crear propiedad', 
         csrf_token: request.csrfToken(),
+        data: {},
         isLoggedIn: true,
         categories,
         prices
@@ -28,19 +29,18 @@ const formCreate = async ( request, response ) => {
 
 // ! Formulario: Registro de propiedad (Errores) 
 const formCreateWithErrors = async ( request, response, errors ) => {
-    const { body: { title, description, category, price, bedrooms, parking_lot, wc, street_name, lat, log } } = request;
 
-        // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
-        const [ categories, prices ] = await Promise.all([
-            Category.findAll(),
-            Price.findAll()
-        ]);
+    // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
+    const [ categories, prices ] = await Promise.all([
+        Category.findAll(),
+        Price.findAll()
+    ]);
 
     response.render( 'real-estate/form-create', {
         name_page: 'Registro de la propiedad',
         csrf_token: request.csrfToken(),
         errors,
-        realestate: { title, description, category, price, bedrooms, parking_lot, wc, street_name, lat, log },
+        data: request.body,
         isLoggedIn: true,
         categories,
         prices
@@ -48,7 +48,8 @@ const formCreateWithErrors = async ( request, response, errors ) => {
 }
 
 // ! Formulario: Registro de propiedad exitoso
-const registerRealestate = () => {
+const registerRealestate = ( request, response ) => {
+    
     console.log( 'Propiedad registrada exitosamente' );
 }
 
