@@ -16,7 +16,9 @@ block page_body
                     p( class="bg-red-500 text-white text-center text-xs rounded shadow p-2 mb-1" ) #{ err.msg }
         
         div( class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10" )
-            form( class="space-y-5" method="post" action="/auth/register" novalidate="true" )
+            form( class="space-y-5" method="post" action="/real-estate/create" novalidate="true" )
+                input( type="hidden" name="_csrf" value=`${ csrf_token }` )
+
                 .space-y-5
                     h3( class="text-lg leading-6 font-medium text-gray-900" ) Información general 
                     p( class="text-gray-600" ) Agrega los detalles de la propiedad en venta

@@ -1,12 +1,16 @@
 import express from 'express';
 
-import { admin, formCreate } from '../controllers/real-estate.controller.js';
+import { validateFormCreate } from '../middlewares/validators/real-state.js';
+
+import { admin, formCreate, registerRealestate } from '../controllers/real-estate.controller.js';
 
 const router = express.Router();
 
 router.get( '/real-estate', admin );
 
-router.get( '/real-estate/create', formCreate );
+router.route( '/real-estate/create' )
+    .get( formCreate )
+    .post( validateFormCreate, registerRealestate );
 
 
 export default router;
