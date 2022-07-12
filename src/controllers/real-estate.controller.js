@@ -30,6 +30,8 @@ const formCreate = async ( request, response ) => {
 // ! Formulario: Registro de propiedad (Errores) 
 const formCreateWithErrors = async ( request, response, errors ) => {
 
+    console.log( '***', request.body );
+
     // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
     const [ categories, prices ] = await Promise.all([
         Category.findAll(),
@@ -48,9 +50,50 @@ const formCreateWithErrors = async ( request, response, errors ) => {
 }
 
 // ! Formulario: Registro de propiedad exitoso
-const registerRealestate = ( request, response ) => {
+const registerRealestate = async ( request, response ) => {
     
-    console.log( 'Propiedad registrada exitosamente' );
+    const { 
+        body: {
+            ad_title,
+            description,
+            bedrooms,
+            parking_lot,
+            wc,
+            street_name,
+            lat,
+            lng,
+            category: category_id,
+            price: price_id
+        },
+        user: { id: user_id }
+    } =  request;
+    
+    // try {
+        const newRealestate = await RealEstate.create({
+            ad_title,
+            description,
+            bedrooms,
+            parking_lot,
+            wc,
+            street_name,
+            lat,
+            lng,
+            image: '',      // TODO: Registrar imagen de la propiedad
+            category_id,    // ? Se obtiene del Select del Formulario
+            price_id,       // ? Se obtiene del Select del Formulario
+            user_id         // ? Se obtiene request asignado en el Middleware
+        });
+
+        console.log( 'Propiedad registrada', newRealestate );
+
+        const { id } = newRealestate;
+
+        response.redirect( `/real-estate/add-image/${ id }` );
+    // }
+    // catch( err ) {
+    //     console.log( '>>>>>', err );
+    // }
+
 }
 
 export {

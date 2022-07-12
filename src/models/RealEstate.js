@@ -6,7 +6,7 @@ import db from '../config/sequelize.js';
 const RealEstate = db.define( 'realestate', {
     id: {
         type: DataTypes.UUID,
-        defaulValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,       // NOT-NULL
         primaryKey: true
     },

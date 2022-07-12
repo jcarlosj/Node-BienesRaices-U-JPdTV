@@ -2,7 +2,6 @@ import { check } from 'express-validator';
 import { validateResult } from '../../helpers/validate.helper.js';
 
 import { formCreateWithErrors } from '../../controllers/real-estate.controller.js';
-import { RealEstate } from '../../models/index.js';
 
 
 // ! Validaciones: Formulario registro de propiedades
