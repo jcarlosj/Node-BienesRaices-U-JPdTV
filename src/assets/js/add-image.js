@@ -18,5 +18,6 @@ Dropzone.options.realestateImage = {
     dictCancelUpload: 'Cancelar carga',                     /** ? Cambia mensaje enlace 'upload cancel'  */
     headers: {                                              /** ? Las cabeceras se envian primero antes de enviar cualquier dato antes (al recargar la pagina)  */
         'CSRF-Token': token
-    }
+    },                
+    paramName: 'imagerealestate'
 };
