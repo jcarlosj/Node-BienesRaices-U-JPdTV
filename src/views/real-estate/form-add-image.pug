@@ -21,12 +21,13 @@ block page_body
                     p( class="bg-red-500 text-white text-center text-xs rounded shadow p-2 mb-1" ) #{ err.msg }
         
         div( class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10" )
+            //- NOTA: La clase 'dropzone' le permite identificar a Dropzone el formulario que implementara subida de archivos
             form( id="realestate-image" class="dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" method="post" action=`/real-estate/add-image/${ realestate.id }` )
                 input( type="hidden" name="_csrf" value=`${ csrf_token }` )
 
-
+            //- NOTA: El boton no debe estar dentro del cuerpo del formulario que implementa Dropzone
             div 
-                input( type="submit" value="Publicar propiedad" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
+                button( id="publish" type="button" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" ) #{ 'Publicar propiedad' }
 
 block scripts
     script( src="/js/add_image.js" )

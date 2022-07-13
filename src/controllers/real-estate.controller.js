@@ -120,7 +120,7 @@ const addRealestateImage = async ( request, response ) => {
 }
 
 // ! Guarda el archivo en disco
-const saveImage = async ( request, response ) => {
+const saveImage = async ( request, response, next ) => {
 
     const { params: { id }, user, file: { filename } } = request;
 
@@ -146,6 +146,9 @@ const saveImage = async ( request, response ) => {
         console.log( 'Subio imagen: ', filename );
 
         await found_realestate.save();
+
+        // response.redirect( '/real/estate' );     // ? Esta redireccion ya no va a estar operativa pues se le ha pasado todo el control a Dropzone en el FrontEnd
+        next();                                     // ? A la espera de la redireccion del FrontEnd para finalizar el controlador
     }
     catch( error ) {
         console.error( error );

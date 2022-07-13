@@ -11,7 +11,7 @@ Dropzone.options.realestateImage = {
     maxFilesize: 5,                                         /** ? Número máximo de MB permitidos  */
     maxFiles: 1,                                            /** ? Número máximo de archivos permitidos  */
     parallelUploads: 1,                                     /** ? Habilita la cantidad de subidas paralelas que se van a permitir (generalmente puede ser el mismo # de archivos permitidos, siempre que no sean muchos)  */
-    autoProcessQueue: true,                                 /** ? Por defecto los archivos suben automaticamente, esto cancela esta opción.  */
+    autoProcessQueue: false,                                /** ? Por defecto los archivos suben automaticamente, esto cancela esta opción.  */
     addRemoveLinks: true,                                   /** ? Habilita enlace para eliminar archivos agregados  */
     dictRemoveFile: 'Quitar archivo',                       /** ? Cambia mensaje por defecto de la propiedad 'addRemoveLinks'  */
     dictMaxFilesExceeded: 'No puedes subir más archivos.',  /** ? Cambia mensaje de error por defecto de la propiedad 'maxFiles'  */
@@ -19,5 +19,28 @@ Dropzone.options.realestateImage = {
     headers: {                                              /** ? Las cabeceras se envian primero antes de enviar cualquier dato antes (al recargar la pagina)  */
         'CSRF-Token': token
     },                
-    paramName: 'imagerealestate'
+    paramName: 'imagerealestate',                           /** ? Nombre del archivo que usará Dropzone para transferir el archivo  */
+    init: function() {
+        const dropzone = this;
+        const btnPublish = document.querySelector( '#publish' );
+
+        btnPublish.addEventListener( 'click', function() {
+            console.log( 'Publish' );
+            dropzone.processQueue();        // ? Procesamos la subida de archivos manualmente
+        });
+
+        dropzone.on( 'error', function( file, message ) { 
+            console.error( message );
+        });
+
+        // ! Solo se ejecuta cuando a finalizado this.processQueue()
+        dropzone.on( 'queuecomplete', function() { 
+
+            // ! Valida la cola de archivos que faltan por procesar
+            if( dropzone.getActiveFiles().length === 0 ) {
+                window.location.href = '/real-estate';  // ? Redirecciona desde el FrontEnd
+            }
+        });
+
+    }
 };
