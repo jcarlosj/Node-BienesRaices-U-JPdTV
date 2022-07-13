@@ -68,7 +68,7 @@ const registerRealestate = async ( request, response ) => {
         user: { id: user_id }
     } =  request;
     
-    // try {
+    try {
         const newRealestate = await RealEstate.create({
             ad_title,
             description,
@@ -89,14 +89,24 @@ const registerRealestate = async ( request, response ) => {
         const { id } = newRealestate;
 
         response.redirect( `/real-estate/add-image/${ id }` );
-    // }
-    // catch( err ) {
-    //     console.log( '>>>>>', err );
-    // }
+    }
+    catch( err ) {
+        console.log( err );
+    }
 
+}
+
+const addRealestateImage = async ( request, response ) => {
+    
+    response.render( 'real-estate/form-add-image', {
+        name_page: 'Agregar imagen de la propiedad',
+        csrf_token: request.csrfToken(),
+        isLoggedIn: true
+    });
 }
 
 export {
     admin,
-    formCreate, formCreateWithErrors, registerRealestate
+    formCreate, formCreateWithErrors, registerRealestate,
+    addRealestateImage
 }

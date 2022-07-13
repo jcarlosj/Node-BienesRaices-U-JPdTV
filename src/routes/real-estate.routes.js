@@ -3,7 +3,7 @@ import express from 'express';
 import { validateFormCreate } from '../middlewares/validators/real-state.js';
 import protectRoute from '../middlewares/protect-route.js';
 
-import { admin, formCreate, registerRealestate } from '../controllers/real-estate.controller.js';
+import { admin, formCreate, registerRealestate, addRealestateImage } from '../controllers/real-estate.controller.js';
 
 const router = express.Router();
 
@@ -22,6 +22,8 @@ router.route( '/real-estate/create' )
         validateFormCreate,     
         registerRealestate 
     );
+
+router.get( '/real-estate/add-image/:id', addRealestateImage );
 
 
 export default router;
