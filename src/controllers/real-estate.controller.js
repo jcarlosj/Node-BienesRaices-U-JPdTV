@@ -100,16 +100,8 @@ const addRealestateImage = async ( request, response ) => {
     // ! Verifica que la propiedad exista
     const found_realestate = await RealEstate.findByPk( id );
 
-    // ! Si no existe redirecciona
-    if( ! found_realestate )
-        return response.redirect( '/real-estate' );
-
-    // ! Si esta publicada redirecciona
-    if( found_realestate.published )
-        return response.redirect( '/real-estate' );
-
-    // ! Si la publicacion no le pertenece al mismo usuario logueado redirecciona
-    if( found_realestate.user_id !== user.id )
+    // ! Si no puede registrar redirecciona
+    if( ! canRegister( found_realestate, user ) )
         return response.redirect( '/real-estate' );
 
     response.render( 'real-estate/form-add-image', {
@@ -127,16 +119,8 @@ const saveImage = async ( request, response, next ) => {
     // ! Verifica que la propiedad exista
     const found_realestate = await RealEstate.findByPk( id );
 
-    // ! Si no existe redirecciona
-    if( ! found_realestate )
-        return response.redirect( '/real-estate' );
-
-    // ! Si esta publicada redirecciona
-    if( found_realestate.published )
-        return response.redirect( '/real-estate' );
-
-    // ! Si la publicacion no le pertenece al mismo usuario logueado redirecciona
-    if( found_realestate.user_id !== user.id )
+    // ! Si no puede registrar redirecciona
+    if( ! canRegister( found_realestate, user ) )
         return response.redirect( '/real-estate' );
 
     try {
@@ -155,6 +139,25 @@ const saveImage = async ( request, response, next ) => {
     }
 
 }
+
+// ! Verifica si puede registrar propiedad
+const canRegister = ( realestate, user ) => {
+    // ! Si no existe
+    if( ! realestate )
+        return false;
+
+    // ! Si esta publicada
+    if( realestate.published )
+        return false;
+
+    // ! Si la publicacion no le pertenece al mismo usuario logueado
+    if( realestate.user_id !== user.id )
+        return false;
+
+    return true;
+}
+
+
 
 export {
     admin,
