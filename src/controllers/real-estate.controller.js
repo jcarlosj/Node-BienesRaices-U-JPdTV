@@ -3,8 +3,7 @@ import { Category, Price, RealEstate } from '../models/index.js';
 
 const admin = ( request, response ) => {
     response.render( 'real-estate/admin', {
-        name_page: 'Mis propiedades',
-        isLoggedIn: true
+        name_page: 'Mis propiedades'
     } );
 }
 
@@ -21,7 +20,6 @@ const formCreate = async ( request, response ) => {
         name_page: 'Crear propiedad', 
         csrf_token: request.csrfToken(),
         data: {},
-        isLoggedIn: true,
         categories,
         prices
     });
@@ -43,7 +41,6 @@ const formCreateWithErrors = async ( request, response, errors ) => {
         csrf_token: request.csrfToken(),
         errors,
         data: request.body,
-        isLoggedIn: true,
         categories,
         prices
     });
@@ -100,8 +97,7 @@ const addRealestateImage = async ( request, response ) => {
     
     response.render( 'real-estate/form-add-image', {
         name_page: 'Agregar imagen de la propiedad',
-        csrf_token: request.csrfToken(),
-        isLoggedIn: true
+        csrf_token: request.csrfToken()
     });
 }
 

@@ -1,4 +1,7 @@
-extends ../layout/index
+extends ../layout/admin
+
+block styles
+
 
 //- Define bloque de contenido de la pagina
 block page_body
@@ -18,3 +21,9 @@ block page_body
         div( class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10" )
             form( class="space-y-5" method="post" action="/real-estate/create" novalidate="true" )
                 input( type="hidden" name="_csrf" value=`${ csrf_token }` )
+
+
+                div 
+                    input( type="submit" value="Publicar propiedad" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
+
+block scripts

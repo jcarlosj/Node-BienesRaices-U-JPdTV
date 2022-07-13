@@ -23,7 +23,11 @@ router.route( '/real-estate/create' )
         registerRealestate 
     );
 
-router.get( '/real-estate/add-image/:id', addRealestateImage );
+router.get( 
+    '/real-estate/add-image/:id', 
+    protectRoute,
+    addRealestateImage 
+);
 
 
 export default router;
