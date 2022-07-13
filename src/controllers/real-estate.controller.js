@@ -119,8 +119,42 @@ const addRealestateImage = async ( request, response ) => {
     });
 }
 
+// ! Guarda el archivo en disco
+const saveImage = async ( request, response ) => {
+
+    const { params: { id }, user, file: { filename } } = request;
+
+    // ! Verifica que la propiedad exista
+    const found_realestate = await RealEstate.findByPk( id );
+
+    // ! Si no existe redirecciona
+    if( ! found_realestate )
+        return response.redirect( '/real-estate' );
+
+    // ! Si esta publicada redirecciona
+    if( found_realestate.published )
+        return response.redirect( '/real-estate' );
+
+    // ! Si la publicacion no le pertenece al mismo usuario logueado redirecciona
+    if( found_realestate.user_id !== user.id )
+        return response.redirect( '/real-estate' );
+
+    try {
+        found_realestate.image = filename;
+        found_realestate.published = 1;
+
+        console.log( 'Subio imagen: ', filename );
+
+        await found_realestate.save();
+    }
+    catch( error ) {
+        console.error( error );
+    }
+
+}
+
 export {
     admin,
     formCreate, formCreateWithErrors, registerRealestate,
-    addRealestateImage
+    addRealestateImage, saveImage
 }
