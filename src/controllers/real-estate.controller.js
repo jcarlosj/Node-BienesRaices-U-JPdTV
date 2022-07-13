@@ -93,11 +93,27 @@ const registerRealestate = async ( request, response ) => {
 
 }
 
+// ! Formulario (Dropzone): Agregar imagen a la propiedad
 const addRealestateImage = async ( request, response ) => {
-    
+    const { params: { id }, user } = request;
+
+    // ! Verifica que la propiedad exista
+    const found_realestate = await RealEstate.findByPk( id );
+
+    // ! Si no existe redirecciona
+    if( ! found_realestate )
+        return response.redirect( '/real-estate' );
+
+    // ! Si esta publicada redirecciona
+    if( found_realestate.published )
+        return response.redirect( '/real-estate' );
+
+    // ! Si la publicacion no le pertenece al mismo usuario logueado redirecciona
+    if( found_realestate.user_id !== user.id )
+        return response.redirect( '/real-estate' );
+
     response.render( 'real-estate/form-add-image', {
-        name_page: 'Agregar imagen de la propiedad',
-        csrf_token: request.csrfToken()
+        name_page: 'Agregar imagen de la propiedad'
     });
 }
 
