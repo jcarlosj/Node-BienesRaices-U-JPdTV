@@ -28,6 +28,9 @@ router.get(
     protectRoute,
     addRealestateImage 
 );
+router.post( '/real-estate/add-image/:id', ( request, response ) => {
+    console.log( '>>> Subiendo imagen... <<<' );
+});
 
 
 export default router;

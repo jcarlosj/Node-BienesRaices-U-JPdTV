@@ -113,7 +113,9 @@ const addRealestateImage = async ( request, response ) => {
         return response.redirect( '/real-estate' );
 
     response.render( 'real-estate/form-add-image', {
-        name_page: 'Agregar imagen de la propiedad'
+        name_page: `Agregar imagen: ${ found_realestate.ad_title }`,
+        csrf_token: request.csrfToken(),
+        realestate: found_realestate
     });
 }
 
