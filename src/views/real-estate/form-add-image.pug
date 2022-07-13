@@ -1,7 +1,7 @@
 extends ../layout/admin
 
 block styles
-
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css")
 
 //- Define bloque de contenido de la pagina
 block page_body
@@ -19,11 +19,12 @@ block page_body
                     p( class="bg-red-500 text-white text-center text-xs rounded shadow p-2 mb-1" ) #{ err.msg }
         
         div( class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10" )
-            form( class="space-y-5" method="post" action="/real-estate/create" novalidate="true" )
+            form( class="dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" method="post" action="/real-estate/create" novalidate="true" )
                 input( type="hidden" name="_csrf" value=`${ csrf_token }` )
 
 
-                div 
-                    input( type="submit" value="Publicar propiedad" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
+            div 
+                input( type="submit" value="Publicar propiedad" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
 
 block scripts
+    script( src="/js/add_image.js" )
