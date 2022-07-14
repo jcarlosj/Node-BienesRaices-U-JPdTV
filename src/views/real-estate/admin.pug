@@ -36,7 +36,10 @@ block page_body
                                             value=`${ property.published ? 'Publicado' : 'No publicado' }` 
                                         )
                                     
-                                    a( class="px-2 py-2 md:py-1 text-xs text-center leading-5 font-semibold rounded cursor-pointer bg-indigo-100 text-indigo-800" ) Editar 
+                                    a(
+                                        href=`/real-estate/edit/${ property.id }` 
+                                        class="px-2 py-2 md:py-1 text-xs text-center leading-5 font-semibold rounded cursor-pointer bg-indigo-100 text-indigo-800" 
+                                    ) Editar 
 
                                     form
                                         input(

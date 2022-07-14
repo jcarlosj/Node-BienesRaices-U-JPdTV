@@ -171,10 +171,28 @@ const canRegister = ( realestate, user ) => {
     return true;
 }
 
+// ! Formulario: Editar propiedad
+const formEdit = async ( request, response ) => {
 
+    // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
+    const [ categories, prices ] = await Promise.all([
+        Category.findAll(),
+        Price.findAll()
+    ]);
+
+    response.render( 'real-estate/form-edit', {
+        name_page: 'Editar propiedad', 
+        csrf_token: request.csrfToken(),
+        data: {},
+        categories,
+        prices
+    });
+
+}
 
 export {
     admin,
     formCreate, formCreateWithErrors, registerRealestate,
-    addRealestateImage, saveImage
+    addRealestateImage, saveImage,
+    formEdit
 }
