@@ -7,7 +7,11 @@ const admin = async ( request, response ) => {
     const realestate = await RealEstate.findAll({
         where: {
             user_id
-        }
+        },
+        include: [
+            { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
+            { model: Price }                            // ? Equivale a un join entre tablas relacionadas
+        ]
     });
 
 
