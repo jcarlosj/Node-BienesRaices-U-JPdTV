@@ -109,41 +109,29 @@ const registerRealestate = async ( request, response ) => {
 
 // ! Formulario (Dropzone): Agregar imagen a la propiedad
 const addRealestateImage = async ( request, response ) => {
-    const { params: { id }, user } = request;
+    const { realestate } = request;
 
-    // ! Verifica que la propiedad exista
-    const found_realestate = await RealEstate.findByPk( id );
-
-    // ! Si no puede registrar redirecciona
-    if( ! canRegister( found_realestate, user ) )
-        return response.redirect( '/real-estate' );
+    console.log( realestate );
 
     response.render( 'real-estate/form-add-image', {
-        name_page: `Agregar imagen: ${ found_realestate.ad_title }`,
+        name_page: `Agregar imagen: ${ realestate.ad_title }`,
         csrf_token: request.csrfToken(),
-        realestate: found_realestate
+        realestate
     });
 }
 
 // ! Guarda el archivo en disco
 const saveImage = async ( request, response, next ) => {
 
-    const { params: { id }, user, file: { filename } } = request;
-
-    // ! Verifica que la propiedad exista
-    const found_realestate = await RealEstate.findByPk( id );
-
-    // ! Si no puede registrar redirecciona
-    if( ! canRegister( found_realestate, user ) )
-        return response.redirect( '/real-estate' );
+    const { realestate, file: { filename } } = request;
 
     try {
-        found_realestate.image = filename;
-        found_realestate.published = 1;
+        realestate.image = filename;
+        realestate.published = 1;
 
         console.log( 'Subio imagen: ', filename );
 
-        await found_realestate.save();
+        await realestate.save();
 
         // response.redirect( '/real/estate' );     // ? Esta redireccion ya no va a estar operativa pues se le ha pasado todo el control a Dropzone en el FrontEnd
         next();                                     // ? A la espera de la redireccion del FrontEnd para finalizar el controlador
@@ -152,23 +140,6 @@ const saveImage = async ( request, response, next ) => {
         console.error( error );
     }
 
-}
-
-// ! Verifica si puede registrar propiedad
-const canRegister = ( realestate, user ) => {
-    // ! Si no existe
-    if( ! realestate )
-        return false;
-
-    // ! Si esta publicada
-    if( realestate.published )
-        return false;
-
-    // ! Si la publicacion no le pertenece al mismo usuario logueado
-    if( realestate.user_id !== user.id )
-        return false;
-
-    return true;
 }
 
 // ! Formulario: Editar propiedad
