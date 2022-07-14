@@ -158,7 +158,7 @@ const formEdit = async ( request, response ) => {
     response.render( 'real-estate/form-edit', {
         name_page: 'Editar propiedad', 
         csrf_token: request.csrfToken(),
-        data: {},
+        data: realestate,
         categories,
         prices
     });
