@@ -3,6 +3,7 @@ import express from 'express';
 import { validateFormCreate } from '../middlewares/validators/real-state.js';
 import protectRoute from '../middlewares/protect-route.js';
 import uploadImage from '../middlewares/upload-image.js';
+import { canMakeChanges } from '../middlewares/real-estate.js';
 
 import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit } from '../controllers/real-estate.controller.js';
 
@@ -43,7 +44,7 @@ router.post(
 
 router.get(
     '/real-estate/edit/:id',
-    protectRoute,
+    [ protectRoute, canMakeChanges ],
     formEdit 
 );
 

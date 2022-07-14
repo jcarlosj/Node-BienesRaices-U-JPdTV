@@ -174,6 +174,10 @@ const canRegister = ( realestate, user ) => {
 // ! Formulario: Editar propiedad
 const formEdit = async ( request, response ) => {
 
+    const { realestate } = request;
+
+    console.log( realestate );
+
     // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
     const [ categories, prices ] = await Promise.all([
         Category.findAll(),
