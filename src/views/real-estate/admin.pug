@@ -8,3 +8,20 @@ block page_body
         h2( class="text-center text-2xl" ) #{ name_page }
 
         a( href="/real-estate/create" class="bg-indigo-400 hover:bg-indigo-600 rounded text-white text-sm text-center py-2 px-10 my-5 inline-block w-full sm:w-auto") Crear propiedad
+
+        //- pre= JSON.stringify( realestate, false, 4 )
+
+        if realestate.length 
+            section( class="bg-white shadow rounded-lg" )
+                ul( class="divide-y divide-gray-300" )
+                    each property in realestate
+                        li
+                            section( class="p-6 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-8 gap-4" )
+                                div( class='sm:w-1/4 md:w-1/6' )
+                                    img( src=`uploads/${ property.image }`, alt=`Imagen propiedad: ${ property.ad_title }` class="w-full block" )
+                                div( class='sm:w-2/4 md:w-3/6 lg:w-4/6' )
+                                    a( href="" class="block text-2xl font-extrabold text-indigo-600 truncate" ) #{ property.ad_title }
+                                div( class='sm:w-1/4 md:w-2/6 lg:w-1/6' )
+                                    p= 'Controles (CRUD)'
+        else 
+            p( class="text-center" ) No hay propiedades

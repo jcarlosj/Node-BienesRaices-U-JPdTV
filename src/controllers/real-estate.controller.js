@@ -1,9 +1,19 @@
 import { Category, Price, RealEstate } from '../models/index.js';
 
+// ! Pagina de administracion de propiedades
+const admin = async ( request, response ) => {
+    const { user: { id: user_id } } = request;
 
-const admin = ( request, response ) => {
+    const realestate = await RealEstate.findAll({
+        where: {
+            user_id
+        }
+    });
+
+
     response.render( 'real-estate/admin', {
-        name_page: 'Mis propiedades'
+        name_page: 'Mis propiedades',
+        realestate
     } );
 }
 
