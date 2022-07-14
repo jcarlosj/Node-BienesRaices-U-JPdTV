@@ -156,7 +156,7 @@ const formEdit = async ( request, response ) => {
     ]);
 
     response.render( 'real-estate/form-edit', {
-        name_page: 'Editar propiedad', 
+        name_page: `Editar propiedad: ${ realestate.ad_title }`, 
         csrf_token: request.csrfToken(),
         data: realestate,
         categories,
@@ -165,9 +165,39 @@ const formEdit = async ( request, response ) => {
 
 }
 
+// ! Formulario: Editar de propiedad (Errores) 
+const formEditWithErrors = async ( request, response, errors ) => {
+
+    const { body: { category, price } } = request;
+    // console.log( '***', request.body );
+    console.log( category, price );
+
+    // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
+    const [ categories, prices ] = await Promise.all([
+        Category.findAll(),
+        Price.findAll()
+    ]);
+
+    response.render( 'real-estate/form-edit', {
+        name_page: `Editar propiedad`,
+        csrf_token: request.csrfToken(),
+        errors,
+        data: request.body,
+        categories,
+        prices
+    });
+}
+
+const registerChanges = async ( request, response ) => {
+
+    console.log( request.body ); 
+
+    response.send( 'Guardando cambios...' );
+}
+
 export {
     admin,
     formCreate, formCreateWithErrors, registerRealestate,
-    addRealestateImage, saveImage,
-    formEdit
+    addRealestateImage, saveImage, registerChanges, 
+    formEdit, formEditWithErrors
 }

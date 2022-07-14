@@ -11,6 +11,8 @@ block page_body
         h2( class="text-center text-2xl" ) #{ name_page }
 
         pre( class="text-center my-10" )
+            //- data.price ? data.price == price.id ? true : false : null
+            code #{ JSON.stringify( !! data.price, false, 4 ) }
             code #{ JSON.stringify( data, false, 4 ) }
 
         if errors 
@@ -19,7 +21,8 @@ block page_body
                     p( class="bg-red-500 text-white text-center text-xs rounded shadow p-2 mb-1" ) #{ err.msg }
         
         div( class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10" )
-            form( class="space-y-5" method="post" action="/real-estate/create" novalidate="true" )
+            //- Sin la propiedad 'action', el formulario enviara la peticion a la misma URL donde se despliega, en este caso a: /real-estate/edit
+            form( class="space-y-5" method="post" novalidate="true" )
                 input( type="hidden" name="_csrf" value=`${ csrf_token }` )
 
                 .space-y-5
@@ -39,16 +42,28 @@ block page_body
                             label( for="category" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Categoría
                             select( type="text" id="category" name="category" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
+                                
                                 each category in categories
-                                    option( value=`${ category.id }` selected= data.category_id ? data.category_id == category.id ? true : false : null ) #{ category.name }
+
+                                    //- Verifica si la data viene de la base de datos, si no es que viene del mismo formulario
+                                    if !! data.category
+                                        option( value=`${ category.id }` selected= data.category ? data.category == category.id ? true : false : null ) #{ category.name }
+                                    else
+                                        option( value=`${ category.id }` selected= data.category_id ? data.category_id == category.id ? true : false : null ) #{ category.name }
 
                         div( class="md:w-1/2" )
                             label( for="price" class="block text-sm uppercase text-gray-500 mb-2 font-bold" ) Precio
                             select( type="text" id="price" name="price" class="w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400" )
                                 option( value="" ) - Seleccione -
-                                each price in prices 
-                                    option( value=`${ price.id }` selected= data.price_id ? data.price_id == price.id ? true : false : null ) #{ price.range }
+                                
+                                each price in prices
 
+                                    //- Verifica si la data viene de la base de datos, si no es que viene del mismo formulario
+                                    if !! data.price
+                                        option( value=`${ price.id }` selected= data.price ? data.price == price.id ? true : false : null ) #{ price.range }
+                                    else 
+                                        option( value=`${ price.id }` selected= data.price_id ? data.price_id == price.id ? true : false : null ) #{ price.range }
+                                
 
                     div( class="md:flex md:gap-4 md:space-y-0 space-y-5" )
                         div( class="md:w-1/3" )
@@ -86,7 +101,7 @@ block page_body
                         input( type="hidden" name="lng" id="lng" value= data.lng ? data.lng : '' )
 
                     div 
-                        input( type="submit" value="Guardar cambios" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
+                        input( type="submit" value="Editar propiedad" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer rounded-md" )
 
 block scripts
         script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")

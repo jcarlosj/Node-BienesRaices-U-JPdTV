@@ -1,11 +1,11 @@
 import express from 'express';
 
-import { validateFormCreate } from '../middlewares/validators/real-state.js';
+import { validateFormCreate, validateFormEdit } from '../middlewares/validators/real-state.js';
 import protectRoute from '../middlewares/protect-route.js';
 import uploadImage from '../middlewares/upload-image.js';
 import { canMakeChanges, canRegister } from '../middlewares/real-estate.js';
 
-import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit } from '../controllers/real-estate.controller.js';
+import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit, registerChanges } from '../controllers/real-estate.controller.js';
 
 const router = express.Router();
 
@@ -42,10 +42,14 @@ router.post(
 //      uploadImage.single( 'img-realestate' );       // ? Indica que sube una imagen (single) y pasamos el nombre del parametro en la configuracion de Dropzone
 //      uploadImage.array( 'img-realestate' );        // ? Indica que sube multiples imagenes (array) y pasamos el nombre del parametro en la configuracion de Dropzone (hay que habilitar maxFiles en la configuracion de Dropzone)
 
-router.get(
-    '/real-estate/edit/:id',
-    [ protectRoute, canMakeChanges ],
-    formEdit 
-);
+router.route( '/real-estate/edit/:id' )
+    .get(
+        [ protectRoute, canMakeChanges ],
+        formEdit 
+    )
+    .post(
+        [ protectRoute, validateFormEdit, canMakeChanges ],
+        registerChanges
+    );
 
 export default router;

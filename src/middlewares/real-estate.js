@@ -1,4 +1,4 @@
-import RealEstate from '../models/RealEstate.js';
+import { RealEstate } from '../models/index.js';
 
 
 // ! Verifica si el usuario autenticado puede hacer cambios sobre una propiedad
