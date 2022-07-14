@@ -190,9 +190,44 @@ const formEditWithErrors = async ( request, response, errors ) => {
 
 const registerChanges = async ( request, response ) => {
 
-    console.log( request.body ); 
+    const { 
+        realestate,
+        body: {
+            ad_title,
+            description,
+            bedrooms,
+            parking_lot,
+            wc,
+            street_name,
+            lat,
+            lng,
+            category: category_id,
+            price: price_id
+        }
+    } = request;
+    
+    try {
+        // ! Tomamos la entidad y actualizamos los datos usando la propiedad set de Sequelize
+        realestate.set({
+            ad_title,
+            description,
+            bedrooms,
+            parking_lot,
+            wc,
+            street_name,
+            lat,
+            lng,
+            category_id,
+            price_id
+        });
 
-    response.send( 'Guardando cambios...' );
+        await realestate.save();                // ? Guarda los cambios realizados en la base de datos
+        response.redirect( '/real-estate' );    // ? Redireccionamos
+    }
+    catch( error ) {
+        console.error( error );
+    }
+    
 }
 
 export {
