@@ -1,6 +1,7 @@
-import { RealEstate } from '../models/index.js';
+import { RealEstate, Category, Price } from '../models/index.js';
 
 
+// ********* ACCESO PRIVADO *********
 // ! Verifica si el usuario autenticado puede hacer cambios sobre una propiedad
 const canMakeChanges = async ( request, response, next ) => {
     const {
@@ -50,7 +51,30 @@ const canRegister = async ( request, response, next ) => {
 }
 
 
+// ********* ACCESO PUBLICO *********
+// ! Verifica si existe la  propiedad para mostrarla
+const canShow = async ( request, response, next ) => {
+    const { params: { id } } = request;
+
+    // ! Verifica que la propiedad exista
+    const found_realestate = await RealEstate.findByPk( id, {
+        include: [
+            { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
+            { model: Price }                            // ? Equivale a un join entre tablas relacionadas
+        ]
+    });
+
+    // ! Si no existe
+    if( ! found_realestate )
+        return response.redirect( '/404' );
+
+    request.realestate = found_realestate;
+    next();
+}
+
+
 export {
     canMakeChanges,
-    canRegister
+    canRegister,
+    canShow
 }

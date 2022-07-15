@@ -2,4 +2,8 @@ extends ../../layout/public
 
 //- Define bloque de contenido de la pagina
 block page_body
-    h1 #{ name_page }
+    .py-10
+        h2( class="text-center text-2xl" ) #{ name_page }
+
+        pre( class="my-10" )
+            code #{ JSON.stringify( realestate, undefined, 4 ) }

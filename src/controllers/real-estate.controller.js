@@ -253,9 +253,12 @@ const deteleRegister = async ( request, response ) => {
 
 // ********* CONTROLLERS DE ACCESO PUBLICO *********
 const showRealestate = async ( request, response ) => {
-    console.log( 'showRealestate' );
+    const { realestate } = request;
+
+
     response.render( 'real-estate/public/show', {
-        name_page: `Mostrar propiedad`,
+        name_page: realestate.ad_title,
+        realestate
     });
 }
 

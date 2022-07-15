@@ -3,7 +3,7 @@ import express from 'express';
 import { validateFormCreate, validateFormEdit } from '../middlewares/validators/real-state.js';
 import protectRoute from '../middlewares/protect-route.js';
 import uploadImage from '../middlewares/upload-image.js';
-import { canMakeChanges, canRegister } from '../middlewares/real-estate.js';
+import { canMakeChanges, canRegister, canShow } from '../middlewares/real-estate.js';
 
 import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit, registerChanges, deteleRegister, showRealestate } from '../controllers/real-estate.controller.js';
 
@@ -63,6 +63,7 @@ router.post(
 // ********* RUTAS DE ACCESO PUBLICO *********
 router.get( 
     '/real-estate/:id',
+    canShow,
     showRealestate
 );
 
