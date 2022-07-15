@@ -17,6 +17,7 @@ const admin = async ( request, response ) => {
 
     response.render( 'real-estate/admin', {
         name_page: 'Mis propiedades',
+        csrf_token: request.csrfToken(),
         realestate
     } );
 }
@@ -188,6 +189,7 @@ const formEditWithErrors = async ( request, response, errors ) => {
     });
 }
 
+// ! Formulario: Actualizacion de propiedad exitoso
 const registerChanges = async ( request, response ) => {
 
     const { 
@@ -230,9 +232,15 @@ const registerChanges = async ( request, response ) => {
     
 }
 
+// ! Formulario: Eliminar de propiedad
+const deteleRegister = async ( request, response ) => {
+    response.send( 'Eliminando propiedad...' );
+}
+
 export {
     admin,
     formCreate, formCreateWithErrors, registerRealestate,
     addRealestateImage, saveImage, registerChanges, 
-    formEdit, formEditWithErrors
+    formEdit, formEditWithErrors, 
+    deteleRegister
 }

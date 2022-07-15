@@ -5,7 +5,7 @@ import protectRoute from '../middlewares/protect-route.js';
 import uploadImage from '../middlewares/upload-image.js';
 import { canMakeChanges, canRegister } from '../middlewares/real-estate.js';
 
-import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit, registerChanges } from '../controllers/real-estate.controller.js';
+import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit, registerChanges, deteleRegister } from '../controllers/real-estate.controller.js';
 
 const router = express.Router();
 
@@ -51,5 +51,11 @@ router.route( '/real-estate/edit/:id' )
         [ protectRoute, validateFormEdit, canMakeChanges ],
         registerChanges
     );
+
+router.post( 
+    '/real-estate/delete/:id',
+    protectRoute,
+    deteleRegister
+);
 
 export default router;
