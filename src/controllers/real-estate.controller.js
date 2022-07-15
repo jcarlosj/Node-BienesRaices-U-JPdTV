@@ -3,6 +3,8 @@ import { unlink } from 'node:fs/promises';
 import { Category, Price, RealEstate } from '../models/index.js';
 
 
+// ********* CONTROLLERS DE ACCESO PRIVADO *********
+
 // ! Pagina de administracion de propiedades
 const admin = async ( request, response ) => {
     const { user: { id: user_id } } = request;
@@ -249,10 +251,20 @@ const deteleRegister = async ( request, response ) => {
     response.redirect( '/real-estate' );
 }
 
+// ********* CONTROLLERS DE ACCESO PUBLICO *********
+const showRealestate = async ( request, response ) => {
+    console.log( 'showRealestate' );
+    response.render( 'real-estate/public/show', {
+        name_page: `Mostrar propiedad`,
+    });
+}
+
+
 export {
     admin,
     formCreate, formCreateWithErrors, registerRealestate,
     addRealestateImage, saveImage, registerChanges, 
     formEdit, formEditWithErrors, 
-    deteleRegister
+    deteleRegister,
+    showRealestate
 }

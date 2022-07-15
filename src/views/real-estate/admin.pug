@@ -20,7 +20,7 @@ block page_body
                                 div( class='sm:w-1/4 md:w-1/6' )
                                     img( src=`/uploads/${ property.image }`, alt=`Imagen propiedad: ${ property.ad_title }` class="w-full block" )
                                 div( class='sm:w-2/4 md:w-3/6 lg:w-4/6 space-y-2' )
-                                    a( href="" class="block text-2xl font-extrabold text-indigo-600 truncate" ) #{ property.ad_title }
+                                    a( href=`/real-estate/${ property.id }` class="block text-2xl font-extrabold text-indigo-600 truncate" ) #{ property.ad_title }
                                     p( class="text-sm text-black" ) #{ property.category.name }
                                     p( class="text-sm text-gray-500 flex items-center" )
                                         svg( xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" )
