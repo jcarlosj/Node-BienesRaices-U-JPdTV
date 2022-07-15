@@ -54,7 +54,7 @@ router.route( '/real-estate/edit/:id' )
 
 router.post( 
     '/real-estate/delete/:id',
-    protectRoute,
+    [ protectRoute, canMakeChanges ],
     deteleRegister
 );
 

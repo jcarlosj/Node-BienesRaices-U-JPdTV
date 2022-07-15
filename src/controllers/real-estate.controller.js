@@ -1,4 +1,7 @@
+import { unlink } from 'node:fs/promises';
+
 import { Category, Price, RealEstate } from '../models/index.js';
+
 
 // ! Pagina de administracion de propiedades
 const admin = async ( request, response ) => {
@@ -234,7 +237,16 @@ const registerChanges = async ( request, response ) => {
 
 // ! Formulario: Eliminar de propiedad
 const deteleRegister = async ( request, response ) => {
-    response.send( 'Eliminando propiedad...' );
+    const { realestate } = request;
+
+    const message = `Elimina: ${ realestate.ad_title } y el archivo de imagen ${ realestate.image }`;
+
+    // ! Elimina imagen asociada a la propiedad y datos de la misma en la base de datos
+    await unlink( `public/uploads/${ realestate.image }` );     // ? unlink: Se utiliza para eliminar un archivo o enlace simbólico del sistema de archivos
+    await realestate.destroy();
+    console.log( message );
+
+    response.redirect( '/real-estate' );
 }
 
 export {
