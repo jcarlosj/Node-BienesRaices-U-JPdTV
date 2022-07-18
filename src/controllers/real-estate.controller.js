@@ -12,29 +12,43 @@ const admin = async ( request, response ) => {
             query: { page: currentPage }
         } = request;
 
-    const realestate = await RealEstate.findAll({
-        where: {
-            user_id
-        },
-        include: [
-            { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
-            { model: Price }                            // ? Equivale a un join entre tablas relacionadas
-        ]
-    });
-
     const regexp = /^[0-9]$/
 
     if( ! regexp.test( currentPage ) ) {
         response.redirect( '/real-estate?page=1' );
     }
 
+    // Limites y Offset (Paginador)
+    const
+        limit = 5,
+        offset = ( currentPage * limit ) - limit;
+
     console.log( currentPage );
 
-    response.render( 'real-estate/admin', {
-        name_page: 'Mis propiedades',
-        csrf_token: request.csrfToken(),
-        realestate
-    } );
+    try {
+        const realestate = await RealEstate.findAll({
+            limit,
+            offset,
+            where: {
+                user_id
+            },
+            include: [
+                { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
+                { model: Price }                            // ? Equivale a un join entre tablas relacionadas
+            ]
+        });
+
+        response.render( 'real-estate/admin', {
+            name_page: 'Mis propiedades',
+            csrf_token: request.csrfToken(),
+            realestate
+        } );
+
+    }
+    catch( error ) {
+        console.log( error );
+    }
+    
 }
 
 // ! Formulario: Agregar propiedad
