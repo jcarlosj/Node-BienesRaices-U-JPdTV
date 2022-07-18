@@ -50,7 +50,10 @@ const admin = async ( request, response ) => {
             csrf_token: request.csrfToken(),
             realestate,
             pages: Math.ceil( total / limit ),
-            currentPage
+            currentPage,
+            total,
+            limit,
+            offset
         });
 
     }
