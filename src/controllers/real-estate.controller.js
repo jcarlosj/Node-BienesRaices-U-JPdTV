@@ -12,7 +12,7 @@ const admin = async ( request, response ) => {
             query: { page: currentPage }
         } = request;
 
-    const regexp = /^[0-9]$/
+    const regexp = /^[1-9]$/
 
     if( ! regexp.test( currentPage ) ) {
         response.redirect( '/real-estate?page=1' );
@@ -50,7 +50,7 @@ const admin = async ( request, response ) => {
             csrf_token: request.csrfToken(),
             realestate,
             pages: Math.ceil( total / limit ),
-            currentPage,
+            currentPage: Number( currentPage ),
             total,
             limit,
             offset

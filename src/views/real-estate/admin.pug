@@ -50,6 +50,18 @@ block page_body
                                             value="Eliminar"
                                         )
                 div( class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" )
+                    //- Paginación para dispositivos móviles
+                    div( class="flex flex-1 justify-between sm:hidden" )
+                        a(
+                            href=`/real-estate?page=${ currentPage - 1 }`
+                            class=`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 ${ currentPage === 1 ? 'pointer-events-none text-gray-400 border-gray-100' : '' }`
+                        ) Anterior
+                        a(
+                            href=`/real-estate?page=${ currentPage + 1 }`
+                            class=`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 ${ currentPage === pages ? 'pointer-events-none text-gray-400 border-gray-100' : '' }`
+                        ) Siguiente
+
+                    //- Paginación para Desktop
                     div( class="hidden sm:flex sm:flex-1 sm:item-center sm:justify-between" )
                         p( class="text-sm text-gray-700 gap-2" ) Mostrando 
                             span( class="font-medium" ) #{ offset + 1 } a 
