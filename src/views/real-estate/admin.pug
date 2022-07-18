@@ -49,5 +49,14 @@ block page_body
                                             class=`px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer bg-red-100 text-red-800 w-full`
                                             value="Eliminar"
                                         )
+                div( class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" )
+                    div 
+                        nav( class="relative z-0 inline-flex rounded-md shadow-md" )
+                            - var number = 1;
+                                while number <= pages
+                                    a(
+                                        href=`/real-estate?page=${ number }` 
+                                        class=`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${ currentPage == number ? 'bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white text-gray-300 hover:bg-gray-50' }` 
+                                    ) #{ number++ }
         else 
             p( class="text-center" ) No hay propiedades

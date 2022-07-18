@@ -26,23 +26,32 @@ const admin = async ( request, response ) => {
     console.log( currentPage );
 
     try {
-        const realestate = await RealEstate.findAll({
-            limit,
-            offset,
-            where: {
-                user_id
-            },
-            include: [
-                { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
-                { model: Price }                            // ? Equivale a un join entre tablas relacionadas
-            ]
-        });
+        const [ realestate, total ] = await Promise.all([
+            RealEstate.findAll({
+                limit,
+                offset,
+                where: {
+                    user_id
+                },
+                include: [
+                    { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
+                    { model: Price }                            // ? Equivale a un join entre tablas relacionadas
+                ]
+            }),
+            RealEstate.count({
+                where: {
+                    user_id
+                }
+            })
+        ]);
 
         response.render( 'real-estate/admin', {
             name_page: 'Mis propiedades',
             csrf_token: request.csrfToken(),
-            realestate
-        } );
+            realestate,
+            pages: Math.ceil( total / limit ),
+            currentPage
+        });
 
     }
     catch( error ) {
