@@ -7,7 +7,10 @@ import { Category, Price, RealEstate } from '../models/index.js';
 
 // ! Pagina de administracion de propiedades
 const admin = async ( request, response ) => {
-    const { user: { id: user_id } } = request;
+    const { 
+            user: { id: user_id },
+            query: { page: currentPage }
+        } = request;
 
     const realestate = await RealEstate.findAll({
         where: {
@@ -19,6 +22,13 @@ const admin = async ( request, response ) => {
         ]
     });
 
+    const regexp = /^[0-9]$/
+
+    if( ! regexp.test( currentPage ) ) {
+        response.redirect( '/real-estate?page=1' );
+    }
+
+    console.log( currentPage );
 
     response.render( 'real-estate/admin', {
         name_page: 'Mis propiedades',
