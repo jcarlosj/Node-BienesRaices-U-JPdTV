@@ -8,6 +8,7 @@ import db from './src/config/sequelize.js';
 import authRoutes from './src/routes/auth.routes.js';
 import realEstateRoutes from './src/routes/real-estate.routes.js';
 import appRoutes from './src/routes/app.routes.js';
+import apiRoutes from './src/routes/api.routes.js';
 
 dotenv.config({ path: '.env' });
 
@@ -36,6 +37,7 @@ app.set( 'views', './src/views' );      // ! Habilita directorio de las vistas
 app.use( express.static( 'public' ) );  // ! Habilita directorio para archivos publicos
 
 // * Routing
+app.use( '/api', apiRoutes );
 app.use( '/', appRoutes );
 app.use( '/auth', authRoutes );
 app.use( '/', realEstateRoutes );
