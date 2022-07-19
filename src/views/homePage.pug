@@ -6,7 +6,8 @@ block styles
 //- Define bloque de contenido de la pagina
 block page_body
     .py-10
-        h1( class="text-center text-3xl mb-6" ) #{ name_page }
+        h1( class="text-center text-3xl mb-6" ) Ubicaciones
+        div( id="home-map" class="h-[600px]" )
 
         //- pre( class="my-10" )
         //-     code #{ JSON.stringify( categories, undefined, 4 ) }
@@ -14,6 +15,7 @@ block page_body
         
 
 block scripts
-        script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
-        script(src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js")
-        script(src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js")
+        script( src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" )
+        script( src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js" )
+        script( src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js" )
+        script( src="/js/home_page_map.js" )

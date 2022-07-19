@@ -6,7 +6,8 @@ export default {
     entry: {
         map: './src/assets/js/map.js',
         show_map: './src/assets/js/show-map.js',
-        add_image: './src/assets/js/add-image.js'
+        add_image: './src/assets/js/add-image.js',
+        home_page_map: './src/assets/js/home-page-map.js',
     },
     output: {
         filename: '[name].js',
