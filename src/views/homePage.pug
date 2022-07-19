@@ -1,0 +1,19 @@
+extends ./layout/public
+
+block styles
+    link( rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" )
+
+//- Define bloque de contenido de la pagina
+block page_body
+    .py-10
+        h1( class="text-center text-3xl mb-6" ) #{ name_page }
+
+        //- pre( class="my-10" )
+        //-     code #{ JSON.stringify( realestate, undefined, 4 ) }
+        
+        
+
+block scripts
+        script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+        script(src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js")
+        script(src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js")

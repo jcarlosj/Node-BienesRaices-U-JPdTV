@@ -1,6 +1,8 @@
 const homePage = ( request, response ) => {
     // TODO: Pagina de inicio
-    response.send( 'Home Page' );
+    response.render( 'homePage', {
+        name_page: 'Home Page'
+    });
 }
 
 const categoriesPage = ( request, response ) => {
