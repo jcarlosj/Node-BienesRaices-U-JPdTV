@@ -1,7 +1,16 @@
-const homePage = ( request, response ) => {
+import { Category } from '../models/index.js';
+
+
+const homePage = async ( request, response ) => {
+
+    const categories = await Category.findAll();
+
+    console.log( categories );
+
     // TODO: Pagina de inicio
     response.render( 'homePage', {
-        name_page: 'Home Page'
+        name_page: 'Home Page',
+        categories
     });
 }
 
