@@ -1,16 +1,21 @@
-import { Category } from '../models/index.js';
+import { RealEstate, Category, Price } from '../models/index.js';
 
 
 const homePage = async ( request, response ) => {
 
-    const categories = await Category.findAll();
+        // ! Obtenemos los datos de la BD para desplegar en los elementos select del formulario
+    const [ categories, prices ] = await Promise.all([
+        Category.findAll({ raw: true }),
+        Price.findAll({ raw: true })
+    ]);
 
-    console.log( categories );
+    // console.log( categories, prices );
 
     // TODO: Pagina de inicio
     response.render( 'homePage', {
         name_page: 'Home Page',
-        categories
+        categories,
+        prices
     });
 }
 
