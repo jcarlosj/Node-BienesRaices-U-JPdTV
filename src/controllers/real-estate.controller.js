@@ -291,10 +291,12 @@ const deteleRegister = async ( request, response ) => {
 const showRealestate = async ( request, response ) => {
     const { realestate } = request;
 
+    const categories = await Category.findAll();
 
     response.render( 'real-estate/public/show', {
         name_page: realestate.ad_title,
-        realestate
+        realestate,
+        categories
     });
 }
 
