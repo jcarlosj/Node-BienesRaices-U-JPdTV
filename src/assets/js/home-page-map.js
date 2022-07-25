@@ -13,6 +13,28 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo( mapa );
 
+    let properties = [];        // ? Listado de propiedades
+    const
+        filters = {             // ? Filtros de seleccion del mapa
+            category: '',
+            price: ''
+        },
+        selectedCategory = document.querySelector( '#categories' ),
+        selectedPrice = document.querySelector( '#prices' );
+
+    // ! Filtrando pines por categorias y precios
+    selectedCategory.addEventListener( 'change', event => {
+        filters.category = +event.target.value;
+        // console.log( filters );
+        filterProperties();
+    });
+    selectedPrice.addEventListener( 'change', event => {
+        filters.price = +event.target.value;
+        // console.log( filters );
+        filterProperties();
+    });
+
+
     // ! Definimos un grupo de markers
     let markers = new L.FeatureGroup().addTo( mapa );
 
@@ -26,6 +48,7 @@
                 data = await response.json();
 
             // console.log( data );
+            properties = data.realestate;
             showPinRealestate( data.realestate )
         } 
         catch( error ) {
@@ -37,6 +60,7 @@
 
     const showPinRealestate = ( data ) => {
 
+        markers.clearLayers();      // ? Limpia todos los pines del mapa
         console.log( data );
 
         data.forEach( realestate => {
@@ -75,6 +99,22 @@
 
     }
 
+
+    const filterProperties = () => {
+        // console.log( properties );
+
+        const result = properties.filter( filterByCategory ).filter( filterByPrice );
+
+        showPinRealestate( result );
+
+        console.log( result );
+    }
+
+    const filterByCategory = property => 
+        filters.category ? property.category_id === filters.category : property;
+
+    const filterByPrice = property =>
+        filters.price ? property.price_id === filters.price : property;
 
 })();
 
