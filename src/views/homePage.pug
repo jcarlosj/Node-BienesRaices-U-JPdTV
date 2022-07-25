@@ -28,7 +28,52 @@ block page_body
 
         //- pre( class="my-10" )
         //-     code #{ JSON.stringify( categories, undefined, 4 ) }
-        
+
+        section( class="py-5" )
+            h2( class="text-center text-4xl font-extrabold pt-10" ) Casas para la venta
+            div( class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-14" )
+                each house in houses 
+                    section( class="bg-white shadow rounded-lg" )
+                        img( 
+                            class="object-cover h-72 w-full" 
+                            src=`/uploads/${ house.image }`
+                            alt=`Imagen casa: ${ house.ad_title }`
+                        )
+                        div( class="p-5 space-y-2" )
+                            h3( class="text-2xl font-bold" )= house.ad_title
+                            p( class="text-sm text-gray-600" )  Habitaciones 
+                                span( class="text-gray-800 font-bold" )= house.bedrooms
+                            p( class="text-sm text-gray-600" )  Baños 
+                                span( class="text-gray-800 font-bold" )= house.wc
+                            p( class="text-sm text-gray-600" )  Precio
+                                span( class="text-gray-800 font-bold" )= house.price.range
+                            a( 
+                                href=`/real-estate/${ house.id }` 
+                                class="bg-indigo-600 w-full text-center block font-bold text-white p-2 rounded uppercase"
+                            ) Ver propiedad
+
+        section( class="py-5" )
+            h2( class="text-center text-4xl font-extrabold pt-10" ) Apartamentos para la venta
+            div( class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-14" )
+                each apartment in apartments 
+                    section( class="bg-white shadow rounded-lg" )
+                        img( 
+                            class="object-cover h-72 w-full" 
+                            src=`/uploads/${ apartment.image }`
+                            alt=`Imagen casa: ${ apartment.ad_title }`
+                        )
+                        div( class="p-5 space-y-2" )
+                            h3( class="text-2xl font-bold" )= apartment.ad_title
+                            p( class="text-sm text-gray-600" )  Habitaciones 
+                                span( class="text-gray-800 font-bold" )= apartment.bedrooms
+                            p( class="text-sm text-gray-600" )  Baños 
+                                span( class="text-gray-800 font-bold" )= apartment.wc
+                            p( class="text-sm text-gray-600" )  Precio
+                                span( class="text-gray-800 font-bold" )= apartment.price.range
+                            a( 
+                                href=`/real-estate/${ apartment.id }` 
+                                class="bg-indigo-600 w-full text-center block font-bold text-white p-2 rounded uppercase"
+                            ) Ver propiedad
         
 
 block scripts
