@@ -33,9 +33,6 @@ const homePage = async ( request, response ) => {
         })
     ]);
 
-    // console.log( categories, prices );
-
-    // TODO: Pagina de inicio
     response.render( 'homePage', {
         name_page: 'Home Page',
         categories,
@@ -45,9 +42,28 @@ const homePage = async ( request, response ) => {
     });
 }
 
-const categoriesPage = ( request, response ) => {
-    // TODO: Pagina de categorias
-    response.send( 'Categories Page' );
+const categoriesPage = async ( request, response ) => {
+    const
+        { params: { id } } = request,
+        { locals: { category_name } } = response;
+
+    const [ categories, realestate ] = await Promise.all([
+        Category.findAll({ raw: true }),
+        RealEstate.findAll({
+            where: {
+                category_id: id
+            },
+            include: [
+                { model: Price }
+            ]
+        })
+    ]);
+
+    response.render( 'categoryPage', {
+        name_page: `${ category_name } en venta`,
+        realestate,
+        categories
+    });
 }
 
 const searchEnginePage = ( request, response ) => {

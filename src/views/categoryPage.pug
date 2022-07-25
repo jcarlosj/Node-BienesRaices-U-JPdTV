@@ -1,0 +1,19 @@
+extends ./layout/public
+
+
+//- Define bloque de contenido de la pagina
+block page_body
+    .py-10
+        //- pre( class="my-10" )
+        //-     code #{ JSON.stringify( categories, undefined, 4 ) }
+        
+        h1( class="text-center text-4xl font-extrabold pt-10" )= name_page
+
+        if realestate.length
+            section( class="py-5" )
+                div( class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-14" )
+                    each property in realestate 
+                        include ./templates/card-realestate
+        
+        else 
+            p( class="text-center text-gray-800 text-sm py-10" ) No hay resultados
