@@ -1,7 +1,8 @@
 header( class="bg-indigo-600 p-4" )
     .container.mx-auto.flex.justify-between.items-center
-        h1( class="text-2xl text-white font-extrabold text-center" ) Bienes
-            span( class="font-normal" ) Raices
+        h1( class="text-2xl text-white font-extrabold text-center" ) 
+            a( href="/" ) Bienes
+                span( class="font-normal" ) Raices
 
         nav( class="my-5 text-sm text-white md:flex md:items-center md:gap-4 hidden" )
             a( href="/auth/register" ) Crear cuenta
@@ -13,6 +14,18 @@ header( class="bg-indigo-600 p-4" )
 div( class="bg-indigo-700 py-5 hidden lg:block" )
     div( class="container mx-auto flex justify-between items-center" )
         if categories
-            each category in categories
-                a( href=`/categories/${ category.id }` class="text-sm font-bold uppercase text-white" ) #{ category.name }
-        
+            nav( class="flex gap-4 items-center" )
+                each category in categories
+                    a( href=`/categories/${ category.id }` class="text-sm font-bold uppercase text-white" ) #{ category.name }
+        form(
+            method="post" action="/search" 
+            class="flex items-center gap-2"
+        )
+            input( type="hidden" name="_csrf" value=`${ csrf_token }` )
+
+            label( for="term" class="text-sm font-bold text-white" ) Búsqueda
+            input( 
+                id="term" type="text" name="term" placeholder="Ej: Casa de dos pisos"
+                class="p-2 rounded-lg shadow text-sm border-0" 
+            ) 
+            input( type="submit" value="Buscar" class="bg-indigo-800 hover:bg-indigo-400 rounded-lg text-white font-bold px-4 py-2 cursor-pointer text-sm" )

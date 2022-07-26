@@ -35,6 +35,7 @@ const homePage = async ( request, response ) => {
 
     response.render( 'homePage', {
         name_page: 'Home Page',
+        csrf_token: request.csrfToken(),
         categories,
         prices,
         houses,
@@ -61,6 +62,7 @@ const categoriesPage = async ( request, response ) => {
 
     response.render( 'categoryPage', {
         name_page: `${ category_name } en venta`,
+        csrf_token: request.csrfToken(),
         realestate,
         categories
     });
@@ -76,6 +78,7 @@ const notFoundPage = async ( request, response ) => {
 
     response.render( '404Page', {
         name_page: 'Página no encontrada',
+        csrf_token: request.csrfToken(),
         categories
     });
 }

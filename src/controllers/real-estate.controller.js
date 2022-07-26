@@ -295,6 +295,7 @@ const showRealestate = async ( request, response ) => {
 
     response.render( 'real-estate/public/show', {
         name_page: realestate.ad_title,
+        csrf_token: request.csrfToken(),
         realestate,
         categories
     });
