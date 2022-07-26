@@ -1,3 +1,5 @@
+import { Sequelize } from 'sequelize';
+
 import { RealEstate, Category, Price } from '../models/index.js';
 
 
@@ -68,9 +70,37 @@ const categoriesPage = async ( request, response ) => {
     });
 }
 
-const searchEnginePage = ( request, response ) => {
-    // TODO: Pagina Buscador
-    response.send( 'Search Page' );
+const searchEnginePage = async ( request, response ) => {
+    const { body: { term } } = request;
+
+    console.log( term );
+
+    // ! Validamos que el termino no venga vacio
+    if( ! term.trim() )
+        return response.redirect( 'back' );
+
+    const [ categories, realestate ] = await Promise.all([
+        Category.findAll({ raw: true }),
+        RealEstate.findAll({
+            where: {
+                ad_title: {
+                    [Sequelize.Op.like]: '%' + term + '%'
+                }
+            },
+            include: [
+                { model: Price }
+            ]
+        })
+    ]);
+
+    // console.log( realestate );
+
+    response.render( 'searchPage', {
+        name_page: 'Resultados de la búsqueda',
+        csrf_token: request.csrfToken(),
+        categories,
+        realestate
+    });
 }
 
 const notFoundPage = async ( request, response ) => {

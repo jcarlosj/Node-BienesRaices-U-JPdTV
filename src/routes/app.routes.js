@@ -14,7 +14,7 @@ router.get(
     categoriesPage 
 );
 
-router.get( '/search', searchEnginePage );
+router.post( '/search', searchEnginePage );
 
 router.get( '/404', notFoundPage );
 
