@@ -71,9 +71,13 @@ const searchEnginePage = ( request, response ) => {
     response.send( 'Search Page' );
 }
 
-const notFoundPage = ( request, response ) => {
-    // TODO: Pagina 404
-    response.send( 'Not Found Page' );
+const notFoundPage = async ( request, response ) => {
+    const categories = await Category.findAll({ raw: true });
+
+    response.render( '404Page', {
+        name_page: 'Página no encontrada',
+        categories
+    });
 }
 
 
