@@ -15,7 +15,7 @@ block page_body
             p( class="font-bold text-gray-600 text-sm" ) Categoría: 
                 a( href="#" class="font-normal" ) #{ realestate.category.name } 
 
-        article( class="mt-5 md:flex md:gap-4" )
+        article( class="mt-5 md:flex md:gap-4 md:items-start" )
             section( class="md:w-2/3 bg-white shadow rounded-lg" )
                 img( src=`/uploads/${ realestate.image }`, alt=`Imagen propiedad: ${ realestate.ad_title }` class="w-full block rounded-t-lg" )
                 div( class="px-5 py-7 space-y-4" ) 
@@ -33,13 +33,21 @@ block page_body
                         p( class="text-gray-600 font-bold text-xs" ) Precio
                             span( class="text-gray-800 block text-lg" ) #{ realestate.price.range }
 
-            section( class="md:w-1/3" )
+            aside( class="md:w-1/3 bg-white shadow rounded-lg" )
                 #map( class="h-96 rounded-lg" )
                     div( data-lat=`${ realestate.lat }` data-lng=`${ realestate.lng }` id="coords" class="hidden" ) #{ realestate.street_name }
 
                 .p-5
                     p( class="text-gray-600 font-bold text-xs" ) Dirección
                         span( class="text-gray-800 block text-lg" ) #{ realestate.street_name }
+
+                    h3( class="text-2xl text-center my-10 font-extrabold text-gray-900" ) Vendedor
+                    if auth_user
+                        p Muestra formulario para enviar mensaje al propietario
+                    else
+                        div( class="flex flex-col items-center justify-center gap-2" )
+                            p( class="text-center" ) Si deseas contactar al vendedor
+                            a( href=`/auth/register` class="text-indigo-600" ) debes crear una cuenta
 
 block scripts
         script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")

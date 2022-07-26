@@ -289,7 +289,7 @@ const deteleRegister = async ( request, response ) => {
 
 // ********* CONTROLLERS DE ACCESO PUBLICO *********
 const showRealestate = async ( request, response ) => {
-    const { realestate } = request;
+    const { realestate, auth_user } = request;
 
     console.log( 'auth_user: ', request.auth_user );
 
@@ -299,7 +299,8 @@ const showRealestate = async ( request, response ) => {
         name_page: realestate.ad_title,
         csrf_token: request.csrfToken(),
         realestate,
-        categories
+        categories,
+        auth_user
     });
 }
 
