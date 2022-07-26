@@ -1,5 +1,7 @@
 import { User } from '../models/index.js';
 
+import { validateJWT } from '../helpers/token.helper.js';
+
 
 const isConfirmedEmail = async ( request, response, next ) => {
     const { body: { email, password } } = request;
@@ -46,8 +48,36 @@ const isValidPassword = ( request, response, next ) => {
     next();
 }
 
+const isAuthenticated = async ( request, response, next ) => {
+    const { _token } = request.cookies;
+
+    // ! Verifica si nuesta cookie NO contiene un token valido (Usuario NO logueado)
+    if( ! _token ) {
+        request.auth_user = null;
+        return next();
+    }
+
+    // ! Verifica la autenticacion del usuario en el sistema
+    try {
+        const decoded = validateJWT( _token );
+        const foundUser = await User
+            .scope( 'noPasswordConfirmationToken' )     // ? Nombre del scope que excluye consulta al modelo
+            .findByPk( decoded.id );                    // ? Consulta al Modelo
+
+        console.log( 'Middleware protectRoute', foundUser );
+
+        request.auth_user = foundUser;
+        return next();
+    }
+    catch( error ) {
+        console.log( error );
+        return response.clearCookie( '_token' ).redirect( '/auth/login' );
+    }
+}
+
 
 export {
     isConfirmedEmail,
-    isValidPassword
+    isValidPassword,
+    isAuthenticated
 }

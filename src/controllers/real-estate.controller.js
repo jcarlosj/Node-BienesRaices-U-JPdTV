@@ -291,6 +291,8 @@ const deteleRegister = async ( request, response ) => {
 const showRealestate = async ( request, response ) => {
     const { realestate } = request;
 
+    console.log( 'auth_user: ', request.auth_user );
+
     const categories = await Category.findAll();
 
     response.render( 'real-estate/public/show', {
