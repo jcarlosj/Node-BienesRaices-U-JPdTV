@@ -2,6 +2,8 @@ import { unlink } from 'node:fs/promises';
 
 import { Category, Price, RealEstate } from '../models/index.js';
 
+import { isOwner } from '../helpers/users.helper.js';
+
 
 // ********* CONTROLLERS DE ACCESO PRIVADO *********
 
@@ -291,7 +293,8 @@ const deteleRegister = async ( request, response ) => {
 const showRealestate = async ( request, response ) => {
     const { realestate, auth_user } = request;
 
-    console.log( 'auth_user: ', request.auth_user );
+    // console.log( 'auth_user: ', request.auth_user );
+    // console.log( isOwner( auth_user?.id, realestate.user_id ) );
 
     const categories = await Category.findAll();
 
@@ -300,7 +303,8 @@ const showRealestate = async ( request, response ) => {
         csrf_token: request.csrfToken(),
         realestate,
         categories,
-        auth_user
+        auth_user,
+        isOwner: isOwner( auth_user?.id, realestate.user_id )
     });
 }
 

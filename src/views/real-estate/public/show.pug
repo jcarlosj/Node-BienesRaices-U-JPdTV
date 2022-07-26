@@ -41,13 +41,31 @@ block page_body
                     p( class="text-gray-600 font-bold text-xs" ) Dirección
                         span( class="text-gray-800 block text-lg" ) #{ realestate.street_name }
 
-                    h3( class="text-2xl text-center my-10 font-extrabold text-gray-900" ) Vendedor
-                    if auth_user
-                        p Muestra formulario para enviar mensaje al propietario
-                    else
-                        div( class="flex flex-col items-center justify-center gap-2" )
-                            p( class="text-center" ) Si deseas contactar al vendedor
-                            a( href=`/auth/register` class="text-indigo-600" ) debes crear una cuenta
+                    if ! isOwner
+                        h3( class="text-2xl text-center my-10 font-extrabold text-gray-900" ) Vendedor
+                        if auth_user
+                            form( method="post" )
+                                input( type="hidden" name="_csrf" value=`${ csrf_token }` )
+
+                                div( class="space-y-2" )
+                                    label( for="message" ) Mensaje
+                                    textarea( 
+                                        id="message" 
+                                        name="message"
+                                        class="w-full p-2 border border-gray-300 shadow rounded-lg placeholder-gray-400" 
+                                        placeholder="Escribe un mensaje a la persona que publico la propiedad"
+                                    )
+
+                                    input( 
+                                        type="submit"
+                                        value="Enviar mensaje" 
+                                        class="w-full bg-indigo-600 rounded-lg text-white font-bold px-4 py-2 cursor-pointer text-sm"
+                                    )
+
+                        else
+                            div( class="flex flex-col items-center justify-center gap-2" )
+                                p( class="text-center" ) Si deseas contactar al vendedor
+                                a( href=`/auth/register` class="text-indigo-600" ) debes crear una cuenta
 
 block scripts
         script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
