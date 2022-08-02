@@ -41,8 +41,15 @@ block page_body
                     p( class="text-gray-600 font-bold text-xs" ) Dirección
                         span( class="text-gray-800 block text-lg" ) #{ realestate.street_name }
 
+                    //- Formulario enviar mensaje al propietario
                     if ! isOwner
                         h3( class="text-2xl text-center my-10 font-extrabold text-gray-900" ) Vendedor
+
+                        if errors 
+                            div( class="max-w-md mx-auto my-10" )
+                                each err in errors
+                                    p( class="bg-red-500 text-white text-center text-xs rounded shadow p-2 mb-1" ) #{ err.msg }
+
                         if auth_user
                             form( method="post" )
                                 input( type="hidden" name="_csrf" value=`${ csrf_token }` )

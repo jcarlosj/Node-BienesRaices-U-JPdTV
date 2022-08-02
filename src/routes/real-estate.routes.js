@@ -1,12 +1,24 @@
 import express from 'express';
 
 import { validateFormCreate, validateFormEdit } from '../middlewares/validators/real-state.js';
+import { validateFormMessageToOwner } from '../middlewares/validators/message.js';
 import protectRoute from '../middlewares/protect-route.js';
 import uploadImage from '../middlewares/upload-image.js';
 import { canMakeChanges, canRegister, canShow } from '../middlewares/real-estate.js';
 import { isAuthenticated } from '../middlewares/user.js';
 
-import { admin, formCreate, registerRealestate, addRealestateImage, saveImage, formEdit, registerChanges, deteleRegister, showRealestate } from '../controllers/real-estate.controller.js';
+import { 
+    admin, 
+    formCreate, 
+    registerRealestate, 
+    addRealestateImage, 
+    saveImage, 
+    formEdit, 
+    registerChanges, 
+    deteleRegister, 
+    showRealestate,
+    sendMessageToOwner
+} from '../controllers/real-estate.controller.js';
 
 
 const router = express.Router();
@@ -62,12 +74,18 @@ router.post(
 );
 
 // ********* RUTAS DE ACCESO PUBLICO *********
-router.get( 
-    '/real-estate/:id',
-    isAuthenticated,
-    canShow,
-    showRealestate
-);
+router.route( '/real-estate/:id' )
+    .get( 
+        isAuthenticated,
+        canShow,
+        showRealestate
+    )
+    .post(
+        isAuthenticated,
+        canShow,
+        validateFormMessageToOwner,
+        sendMessageToOwner
+    );
 
 
 export default router;

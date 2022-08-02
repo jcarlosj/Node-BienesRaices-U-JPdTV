@@ -290,6 +290,7 @@ const deteleRegister = async ( request, response ) => {
 }
 
 // ********* CONTROLLERS DE ACCESO PUBLICO *********
+// ! Page: Muestra detalle de la propiedad
 const showRealestate = async ( request, response ) => {
     const { realestate, auth_user } = request;
 
@@ -308,6 +309,44 @@ const showRealestate = async ( request, response ) => {
     });
 }
 
+// ! Page: Muestra detalle de la propiedad & Formulario de mensaje al propietario
+const sendMessageToOwner = async ( request, response ) => {
+    const { body: { message }, realestate, auth_user } = request;
+
+    const categories = await Category.findAll();
+
+    if( message )
+        console.log({ message });
+
+    response.render( 'real-estate/public/show', {
+        name_page: realestate.ad_title,
+        csrf_token: request.csrfToken(),
+        realestate,
+        categories,
+        auth_user,
+        isOwner: isOwner( auth_user?.id, realestate.user_id )
+    });
+}
+
+// ! Page: Muestra detalle de la propiedad & Formulario de mensaje al propietario (Errores)
+const formMessageToOwnerWithErrors = async ( request, response, errors ) => {
+    const { realestate, auth_user } = request;
+
+    const categories = await Category.findAll();
+
+    console.log( errors );
+
+    response.render( 'real-estate/public/show', {
+        name_page: realestate.ad_title,
+        csrf_token: request.csrfToken(),
+        realestate,
+        categories,
+        auth_user,
+        isOwner: isOwner( auth_user?.id, realestate.user_id ),
+        errors
+    });
+}
+
 
 export {
     admin,
@@ -315,5 +354,7 @@ export {
     addRealestateImage, saveImage, registerChanges, 
     formEdit, formEditWithErrors, 
     deteleRegister,
-    showRealestate
+    showRealestate,
+    sendMessageToOwner,
+    formMessageToOwnerWithErrors
 }
