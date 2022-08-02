@@ -1,6 +1,6 @@
 import { unlink } from 'node:fs/promises';
 
-import { Category, Price, RealEstate } from '../models/index.js';
+import { Category, Price, RealEstate, Message } from '../models/index.js';
 
 import { isOwner } from '../helpers/users.helper.js';
 
@@ -311,12 +311,24 @@ const showRealestate = async ( request, response ) => {
 
 // ! Page: Muestra detalle de la propiedad & Formulario de mensaje al propietario
 const sendMessageToOwner = async ( request, response ) => {
-    const { body: { message }, realestate, auth_user } = request;
+    const { 
+            body: { message }, 
+            params: { id: realestate_id }, 
+            realestate,
+            auth_user 
+        } = request;
 
     const categories = await Category.findAll();
 
-    if( message )
-        console.log({ message });
+    if( message ) {
+        // console.log({ message, user_id: realestate.user_id, realestate_id: id } );
+        await Message.create({
+            message,
+            user_id: realestate.user_id,
+            realestate_id
+        });
+    }
+        
 
     response.render( 'real-estate/public/show', {
         name_page: realestate.ad_title,
@@ -324,7 +336,8 @@ const sendMessageToOwner = async ( request, response ) => {
         realestate,
         categories,
         auth_user,
-        isOwner: isOwner( auth_user?.id, realestate.user_id )
+        isOwner: isOwner( auth_user?.id, realestate.user_id ),
+        sent: true
     });
 }
 
