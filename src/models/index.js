@@ -2,6 +2,7 @@ import User from './User.js';
 import RealEstate from './RealEstate.js';
 import Category from './Category.js'; 
 import Price from './Price.js';
+import Message from './Message.js';
 
 
 // ! Relationship between 1 a 1 (RealEstate & User): 
@@ -58,9 +59,18 @@ RealEstate.belongsTo( Price, {
 });
 
 
+Message.belongsTo( User, {
+    foreignKey: 'user_id', // ? Establece nombre de la columna FK (User)
+});
+Message.belongsTo( RealEstate, {
+    foreignKey: 'realestate_id',    // ? Establece nombre de la columna FK (RealEstate)
+});
+
+
 export {
     User,
     RealEstate,
     Category,
-    Price
+    Price,
+    Message
 }
