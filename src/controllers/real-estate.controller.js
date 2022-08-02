@@ -328,17 +328,18 @@ const sendMessageToOwner = async ( request, response ) => {
             realestate_id
         });
     }
-        
 
-    response.render( 'real-estate/public/show', {
-        name_page: realestate.ad_title,
-        csrf_token: request.csrfToken(),
-        realestate,
-        categories,
-        auth_user,
-        isOwner: isOwner( auth_user?.id, realestate.user_id ),
-        sent: true
-    });
+    response.redirect( `/real-estate/${ realestate_id }` );
+
+    // response.render( 'real-estate/public/show', {
+    //     name_page: realestate.ad_title,
+    //     csrf_token: request.csrfToken(),
+    //     realestate,
+    //     categories,
+    //     auth_user,
+    //     isOwner: isOwner( auth_user?.id, realestate.user_id ),
+    //     sent: true
+    // });
 }
 
 // ! Page: Muestra detalle de la propiedad & Formulario de mensaje al propietario (Errores)
