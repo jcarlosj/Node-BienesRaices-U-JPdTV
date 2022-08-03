@@ -37,7 +37,8 @@ const admin = async ( request, response ) => {
                 },
                 include: [
                     { model: Category, as: 'category' },        // ? Equivale a un join entre tablas relacionadas
-                    { model: Price }                            // ? Equivale a un join entre tablas relacionadas
+                    { model: Price },                           // ? Equivale a un join entre tablas relacionadas
+                    { model: Message }                          // ? Equivale a un join entre tablas relacionadas
                 ]
             }),
             RealEstate.count({

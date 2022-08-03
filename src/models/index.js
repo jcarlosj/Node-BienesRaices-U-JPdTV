@@ -57,6 +57,10 @@ RealEstate.belongsTo( Price, {
     foreignKey: 'price_id',             // ? Establece nombre de la columna FK (RealEstate)
     sourceKey: 'id'                     // ? Indica el nombre de la columna PK de la entidad o tabla con la que se relaciona (Price)
 });
+// Una propiedad tiene multiples mensajes (1 a N)
+RealEstate.hasMany( Message, {
+    foreignKey: 'realestate_id'         // ? Establece nombre de la columna FK (RealEstate)
+});
 
 
 Message.belongsTo( User, {
