@@ -363,7 +363,12 @@ const formMessageToOwnerWithErrors = async ( request, response, errors ) => {
 }
 
 const inboxMessagesByRealestate = ( request, response ) => {
-    response.send( 'Mensajes por propiedad' );
+    const { realestate } = request;
+
+    response.render( 'real-estate/messages', {
+        name_page: 'Mensajes',
+        messages: realestate.messages
+    });
 }
 
 export {

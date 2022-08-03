@@ -91,6 +91,7 @@ router.route( '/real-estate/:id' )
 router.get(
     '/messages/:id',
     protectRoute,
+    canMakeChanges,
     inboxMessagesByRealestate
 );
 

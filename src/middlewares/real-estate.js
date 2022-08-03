@@ -1,4 +1,4 @@
-import { RealEstate, Category, Price } from '../models/index.js';
+import { RealEstate, Category, Price, Message } from '../models/index.js';
 
 
 // ********* ACCESO PRIVADO *********
@@ -10,7 +10,11 @@ const canMakeChanges = async ( request, response, next ) => {
     } = request;
 
     // ! Verifica que la propiedad exista
-    const found_realestate = await RealEstate.findByPk( id );
+    const found_realestate = await RealEstate.findByPk( id, {
+        include: [
+            { model: Message }
+        ]
+    });
 
     // ! Si no existe
     if( ! found_realestate )
