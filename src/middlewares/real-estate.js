@@ -1,4 +1,4 @@
-import { RealEstate, Category, Price, Message } from '../models/index.js';
+import { RealEstate, Category, Price, Message, User } from '../models/index.js';
 
 
 // ********* ACCESO PRIVADO *********
@@ -12,7 +12,15 @@ const canMakeChanges = async ( request, response, next ) => {
     // ! Verifica que la propiedad exista
     const found_realestate = await RealEstate.findByPk( id, {
         include: [
-            { model: Message }
+            { model: Message,           // ? Puebla los mensajes de la propiedad
+                include: [              // ? Realiza un join para obtener el nombre del user_id de la entidad Message
+                    { model: User, 
+                        attributes: {   
+                            exclude: [ 'password', 'token', 'confirmed', 'createdAt', 'updatedAt' ]     // ? Excluya los datos de los campos incluidos en el array
+                        }
+                    }
+                ]
+            }
         ]
     });
 

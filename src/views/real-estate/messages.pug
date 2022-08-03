@@ -7,16 +7,19 @@ block page_body
 
         a( href="/real-estate" class="bg-indigo-400 hover:bg-indigo-600 rounded text-white text-sm text-center py-2 px-10 my-5 inline-block w-full sm:w-auto" ) Volver
 
-        //- pre= JSON.stringify( messages, false, 4 )
+        //- pre= JSON.stringify( messages, false, 4 );
 
         if messages.length 
             section( class="mx-auto bg-white max-w-4xl shadow rounded-lg" )
                 ul( class="divide-y divide-gray-300" )
                     each message in messages
                         li
-                            section( class="p-6 w-full flex flex-col sm:flex-col sm:items-start sm:justify-between space-y-8 sm:space-y-0 gap-4" )
+                            section( class="p-6 w-full flex flex-col sm:flex-col sm:items-start sm:justify-between space-y-8 sm:space-y-0 gap-2" )
                                 p( class="font-bold text-gray-800" ) Nombre: 
-                                    span( class="font-normal" ) #{ message.user_id }
+                                    span( class="font-normal" ) #{ message.user.name }
+
+                                p( class="font-bold text-gray-800" ) Correo: 
+                                    span( class="font-normal" ) #{ message.user.email }
 
                                 p( class="font-bold text-gray-800" ) Mensaje: 
                                     span( class="font-normal" ) #{ message.message }
