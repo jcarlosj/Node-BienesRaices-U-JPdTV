@@ -7,7 +7,7 @@ block page_body
 
         a( href="/real-estate" class="bg-indigo-400 hover:bg-indigo-600 rounded text-white text-sm text-center py-2 px-10 my-5 inline-block w-full sm:w-auto" ) Volver
 
-        //- pre= JSON.stringify( messages, false, 4 );
+        //- pre= JSON.stringify( messages, false, 4 )
 
         if messages.length 
             section( class="mx-auto bg-white max-w-4xl shadow rounded-lg" )
@@ -25,7 +25,7 @@ block page_body
                                     span( class="font-normal" ) #{ message.message }
                                 
                                 p( class="font-bold text-gray-800" ) Recibido: 
-                                    span( class="font-normal" ) #{ message.createdAt }
+                                    span( class="font-normal" ) #{ formatDate( message.createdAt ) }
         else
             section( class="bg-white shadow rounded-lg" )
                 p( class="text-center text-gray-600 p-5 rounded-lg" ) No hay mensajes

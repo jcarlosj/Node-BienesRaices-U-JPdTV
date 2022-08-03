@@ -3,6 +3,7 @@ import { unlink } from 'node:fs/promises';
 import { Category, Price, RealEstate, Message } from '../models/index.js';
 
 import { isOwner } from '../helpers/users.helper.js';
+import { formatDate } from '../helpers/date.helper.js';
 
 
 // ********* CONTROLLERS DE ACCESO PRIVADO *********
@@ -365,9 +366,12 @@ const formMessageToOwnerWithErrors = async ( request, response, errors ) => {
 const inboxMessagesByRealestate = ( request, response ) => {
     const { realestate } = request;
 
+    console.log( formatDate( realestate.messages[ 0 ][ 'createdAt' ] ) ); 
+
     response.render( 'real-estate/messages', {
         name_page: 'Mensajes',
-        messages: realestate.messages
+        messages: realestate.messages,
+        formatDate
     });
 }
 

@@ -16,7 +16,7 @@ const canMakeChanges = async ( request, response, next ) => {
                 include: [              // ? Realiza un join para obtener el nombre del user_id de la entidad Message
                     { model: User, 
                         attributes: {   
-                            exclude: [ 'password', 'token', 'confirmed', 'createdAt', 'updatedAt' ]     // ? Excluya los datos de los campos incluidos en el array
+                            exclude: [ 'password', 'token', 'confirmed', 'updatedAt' ]     // ? Excluya los datos de los campos incluidos en el array
                         }
                     }
                 ]
