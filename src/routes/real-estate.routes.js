@@ -17,7 +17,8 @@ import {
     registerChanges, 
     deteleRegister, 
     showRealestate,
-    sendMessageToOwner
+    sendMessageToOwner,
+    inboxMessagesByRealestate
 } from '../controllers/real-estate.controller.js';
 
 
@@ -86,6 +87,12 @@ router.route( '/real-estate/:id' )
         validateFormMessageToOwner,
         sendMessageToOwner
     );
+
+router.get(
+    '/messages/:id',
+    protectRoute,
+    inboxMessagesByRealestate
+);
 
 
 export default router;

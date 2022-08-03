@@ -361,6 +361,9 @@ const formMessageToOwnerWithErrors = async ( request, response, errors ) => {
     });
 }
 
+const inboxMessagesByRealestate = ( request, response ) => {
+    response.send( 'Mensajes por propiedad' );
+}
 
 export {
     admin,
@@ -370,5 +373,6 @@ export {
     deteleRegister,
     showRealestate,
     sendMessageToOwner,
-    formMessageToOwnerWithErrors
+    formMessageToOwnerWithErrors,
+    inboxMessagesByRealestate
 }
