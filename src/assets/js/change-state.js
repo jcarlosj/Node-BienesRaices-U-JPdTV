@@ -1,5 +1,7 @@
 ( function() {
-    const allButtons = document.querySelectorAll( '.change-state' );
+    const
+        allButtons = document.querySelectorAll( '.change-state' ),
+        token = document.querySelector( 'meta[name="csrf-token"]' ).getAttribute( 'content' );
 
     allButtons.forEach( button => {
         button.addEventListener( 'click', changePostStatus );
@@ -10,11 +12,14 @@
             { target: { dataset: { propertyId } } } = event,
             url = `/real-estate/${ propertyId }`;
 
-        // console.log( propertyId );
+        console.log( propertyId );
 
         try {
             const response = await fetch( url, {
-                method: 'PUT'
+                method: 'PUT',
+                headers: {
+                    'CSRF-Token': token
+                }
             });
 
             console.log( response );

@@ -294,7 +294,7 @@ const deteleRegister = async ( request, response ) => {
 
 // ! Botón: Cambiar estado de publicacion de la propiedad
 const changePostStatus = ( request, response ) => {
-    console.log( 'Cambia el estado' );
+    console.log( 'Cambia el estado', request.params );
 }
 
 // ********* CONTROLLERS DE ACCESO PUBLICO *********
