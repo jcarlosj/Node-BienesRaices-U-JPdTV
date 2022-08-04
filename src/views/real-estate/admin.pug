@@ -32,12 +32,12 @@ block page_body
                                     a( href=`/messages/${ property.id }` class="text-sm text-gray-600" )= `${ property.messages.length } ${ ( property.messages.length == 0 || property.messages.length > 1 ) ? 'Mensajes' : 'Mensaje' }`
 
                                 div( class="sm:w-1/4 md:w-2/6 lg:flex-row flex flex-col gap-1 lg:flex-1" )
-                                    form
-                                        input(
-                                            type="submit" 
-                                            class=`px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer w-full ${ property.published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }`
-                                            value=`${ property.published ? 'Publicado' : 'No publicado' }` 
-                                        )
+                                
+                                    button(
+                                        type="button" 
+                                        data-property-id=`${ property.id }`
+                                        class=`change-state px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer w-full ${ property.published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }` 
+                                    ) #{ `${ property.published ? 'Publicado' : 'No publicado' }` }
                                     
                                     a(
                                         href=`/real-estate/edit/${ property.id }` 
@@ -81,3 +81,6 @@ block page_body
                                     ) #{ number++ }
         else 
             p( class="text-center" ) No hay propiedades
+
+block scripts
+    script( src="/js/change_state.js" )
