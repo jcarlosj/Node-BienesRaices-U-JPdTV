@@ -76,8 +76,8 @@ const canShow = async ( request, response, next ) => {
         ]
     });
 
-    // ! Si no existe
-    if( ! found_realestate )
+    // ! Si NO existe o existe pero NO esta publicada
+    if( ! found_realestate || ! found_realestate.published )
         return response.redirect( '/404' );
 
     request.realestate = found_realestate;
