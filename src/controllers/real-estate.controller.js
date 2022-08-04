@@ -291,6 +291,12 @@ const deteleRegister = async ( request, response ) => {
     response.redirect( '/real-estate' );
 }
 
+
+// ! Botón: Cambiar estado de publicacion de la propiedad
+const changePostStatus = ( request, response ) => {
+    console.log( 'Cambia el estado' );
+}
+
 // ********* CONTROLLERS DE ACCESO PUBLICO *********
 // ! Page: Muestra detalle de la propiedad
 const showRealestate = async ( request, response ) => {
@@ -377,10 +383,16 @@ const inboxMessagesByRealestate = ( request, response ) => {
 
 export {
     admin,
-    formCreate, formCreateWithErrors, registerRealestate,
-    addRealestateImage, saveImage, registerChanges, 
-    formEdit, formEditWithErrors, 
+    formCreate, 
+    formCreateWithErrors, 
+    registerRealestate,
+    addRealestateImage, 
+    saveImage, 
+    formEdit, 
+    formEditWithErrors, 
+    registerChanges, 
     deteleRegister,
+    changePostStatus,
     showRealestate,
     sendMessageToOwner,
     formMessageToOwnerWithErrors,

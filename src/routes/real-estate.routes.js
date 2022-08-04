@@ -18,7 +18,8 @@ import {
     deteleRegister, 
     showRealestate,
     sendMessageToOwner,
-    inboxMessagesByRealestate
+    inboxMessagesByRealestate,
+    changePostStatus
 } from '../controllers/real-estate.controller.js';
 
 
@@ -72,6 +73,13 @@ router.post(
     '/real-estate/delete/:id',
     [ protectRoute, canMakeChanges ],
     deteleRegister
+);
+
+// Peticion desde el FrontEnd donde Fetch API si soporta todos los verbos REST API
+router.put(
+    '/real-estate/:id',
+    [ protectRoute, canMakeChanges ],
+    changePostStatus
 );
 
 // ********* RUTAS DE ACCESO PUBLICO *********

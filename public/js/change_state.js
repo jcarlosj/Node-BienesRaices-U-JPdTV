@@ -16,7 +16,7 @@
   \***************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n( function() {\n    const allButtons = document.querySelectorAll( '.change-state' );\n\n    allButtons.forEach( button => {\n        button.addEventListener( 'click', changePostStatus );\n    });\n\n    function changePostStatus ( event ) {\n        const { target: { dataset: { propertyId } } } = event;\n\n        console.log( propertyId );\n    }\n\n})();\n\n//# sourceURL=webpack://bienes-raices/./src/assets/js/change-state.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n( function() {\n    const allButtons = document.querySelectorAll( '.change-state' );\n\n    allButtons.forEach( button => {\n        button.addEventListener( 'click', changePostStatus );\n    });\n\n    async function changePostStatus ( event ) {\n        const\n            { target: { dataset: { propertyId } } } = event,\n            url = `/real-estate/${ propertyId }`;\n\n        // console.log( propertyId );\n\n        try {\n            const response = await fetch( url, {\n                method: 'PUT'\n            });\n\n            console.log( response );\n        } \n        catch( error ) {\n            console.error( error );\n        }\n\n    }\n\n})();\n\n//# sourceURL=webpack://bienes-raices/./src/assets/js/change-state.js?");
 
 /***/ })
 
