@@ -34,7 +34,7 @@ block page_body
 
                                     a( href=`/messages/${ property.id }` class="text-sm text-gray-600" )= `${ property.messages.length } ${ ( property.messages.length == 0 || property.messages.length > 1 ) ? 'Mensajes' : 'Mensaje' }`
 
-                                div( class="sm:w-1/4 md:w-2/6 lg:flex-row flex flex-col gap-1 lg:flex-1" )
+                                div( class="sm:w-1/4 md:w-2/6 lg:w-1/6 2xl:flex-row flex flex-col gap-1" )
                                 
                                     button(
                                         type="button" 

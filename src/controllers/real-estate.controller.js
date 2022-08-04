@@ -302,7 +302,7 @@ const changePostStatus = async ( request, response ) => {
     await realestate.save();                            // ? Fija los cambios del estado en la base de datos
 
     response.json({
-        msg: 'Ok'
+        msg: true
     });
 }
 
