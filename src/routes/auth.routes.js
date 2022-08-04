@@ -5,7 +5,7 @@ import { isValidToken } from '../middlewares/token.js';
 import { isConfirmedEmail, isValidPassword } from '../middlewares/user.js';
 
 import { 
-    formLogin, signIn, 
+    formLogin, signIn, signOut,
     formRegister, registerUser,
     formRecoverPassword, resetPassword,
     confirmAccount,
@@ -23,6 +23,8 @@ router.route( '/login' )
         isValidPassword, 
         signIn
     );
+
+router.post( '/logout', signOut );
 
 router.route( '/register' )
     .get( formRegister )

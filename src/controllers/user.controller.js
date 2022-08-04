@@ -46,6 +46,11 @@ const signIn = ( request, response ) => {
         .redirect( '/real-estate' );     // ? Redireccion
 }
 
+// ! Formulario: Cerrar 'sesión'
+const signOut = ( request, response ) => {
+    response.clearCookie( '_token' ).status( 200 ).redirect( '/auth/login' );
+}
+
 // ! Formulario: Registro de usuario
 const formRegister = ( request, response ) => {
     // console.log( 'CSRF: ', request.csrfToken() );
@@ -196,9 +201,18 @@ const confirmAccount = async ( request, response ) => {
 }
 
 export {
-    formLogin, formLoginWithErrors, signIn,
-    formRegister, formRegisterWithErrors, registerUser,
-    formRecoverPassword, formRecoverPasswordWithErrors, resetPassword,
+    formLogin, 
+    formLoginWithErrors, 
+    signIn, 
+    signOut,
+    formRegister, 
+    formRegisterWithErrors, 
+    registerUser,
+    formRecoverPassword, 
+    formRecoverPasswordWithErrors, 
+    resetPassword,
     confirmAccount,
-    formChangePassword, formChangePasswordWithErrors, changePassword
+    formChangePassword, 
+    formChangePasswordWithErrors, 
+    changePassword
 }
