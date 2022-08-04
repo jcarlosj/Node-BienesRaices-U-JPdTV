@@ -12,17 +12,19 @@
             { target: { dataset: { propertyId } } } = event,
             url = `/real-estate/${ propertyId }`;
 
-        console.log( propertyId );
+        // console.log( propertyId );
 
         try {
-            const response = await fetch( url, {
-                method: 'PUT',
-                headers: {
-                    'CSRF-Token': token
-                }
-            });
+            const
+                response = await fetch( url, {
+                    method: 'PUT',
+                    headers: {
+                        'CSRF-Token': token
+                    }
+                }),
+                data = await response.json();
 
-            console.log( response );
+            console.log( data );
         } 
         catch( error ) {
             console.error( error );

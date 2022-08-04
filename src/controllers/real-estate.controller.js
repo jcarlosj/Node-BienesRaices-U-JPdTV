@@ -293,8 +293,17 @@ const deteleRegister = async ( request, response ) => {
 
 
 // ! Botón: Cambiar estado de publicacion de la propiedad
-const changePostStatus = ( request, response ) => {
-    console.log( 'Cambia el estado', request.params );
+const changePostStatus = async ( request, response ) => {
+    const { realestate } = request;
+
+    // console.log( realestate );
+
+    realestate.published = ! realestate.published;      // ? Cambia el estado de publicacion de la propiedad
+    await realestate.save();                            // ? Fija los cambios del estado en la base de datos
+
+    response.json({
+        msg: 'Ok'
+    });
 }
 
 // ********* CONTROLLERS DE ACCESO PUBLICO *********
